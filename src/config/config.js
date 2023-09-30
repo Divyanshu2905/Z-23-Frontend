@@ -1,3 +1,3 @@
 import axios from 'axios'
-
-export const axiosInstance = axios.create({baseURL: "http://localhost:5000"})
+require("dotenv").config()
+export const axiosInstance = axios.create({baseURL: process.env.SERVER_URL})

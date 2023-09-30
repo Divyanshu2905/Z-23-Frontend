@@ -36,16 +36,16 @@ function App() {
   }, []);
   return (
     <>
-      {loading && <Loader />}
-      {!loading && (
+      {/* {loading && <Loader />}
+      {!loading && ( */}
         <>
           {/* <Navbar/> */}
           <Routes>
             <Route path="/" index element={<Landing />} />
-            <Route path="home" index element={<Home />} />
-            <Route path="faq" index element={<Faq />} />
-            <Route path="tnc" index element={<Faq />} />
-            <Route path="events" index element={<Events />} />
+            {/* <Route path="home" index element={<Home />} /> */}
+            {/* <Route path="faq" index element={<Faq />} />
+            <Route path="tnc" index element={<Faq />} /> */}
+            {/* <Route path="events" index element={<Events />} /> */}
             <Route path="campus-ambassador" element={<CaHome />}>
               <Route path="register" element={<Register />}></Route>
               <Route path="login" element={<Login />}></Route>
@@ -57,7 +57,7 @@ function App() {
             <Route path="*" element={<Navigate to="/campus-ambassador" />} />
           </Routes>
         </>
-      )}
+      {/* )} */}
     </>
   );
 }
