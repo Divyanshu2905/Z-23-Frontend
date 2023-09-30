@@ -41,7 +41,7 @@ function App() {
         <>
           {/* <Navbar/> */}
           <Routes>
-            <Route path="/" index element={<Landing />} />
+            <Route path="/" index element={<Navigate to={"campus-ambassador"} />} />
             {/* <Route path="home" index element={<Home />} /> */}
             {/* <Route path="faq" index element={<Faq />} />
             <Route path="tnc" index element={<Faq />} /> */}

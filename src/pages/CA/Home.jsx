@@ -140,7 +140,7 @@ export const Home = () => {
           </>
         )}
       </MainContainer>
-      {outlet === "" ? null : (
+      {outlet !== "" ? null : (
         <footer>
           <Footer />
         </footer>
