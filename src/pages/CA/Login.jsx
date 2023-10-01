@@ -23,7 +23,7 @@ export const Login = () => {
 
   const handleGoogleLogin = async () => {
     const provider = new GoogleAuthProvider();
-    await signInWithPopup(auth, provider)
+    signInWithPopup(auth, provider)
       .then((result) => {
         //Successful login
         axiosInstance.get("/user", {

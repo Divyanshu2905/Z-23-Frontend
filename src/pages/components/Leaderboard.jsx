@@ -6,13 +6,17 @@ import { axiosInstance } from "../../config/config";
 
 export const Leaderboard = ({ data, admin }) => {
   const [searchValue, setValue] = useState("");
-  const [searchedCA, setSearchedCA] = useState([])
+  const [searchedCA, setSearchedCA] = useState([]);
   const onInputChange = (e) => {
     setValue(e.target.value);
+    findClosestMatch(data, searchValue);
   };
-  const submitPoints = (e)=>{
-    axiosInstance.put("/data", {email: e.target.className, points: e.target.nextElementSibling.value})
-  }
+  const submitPoints = (e) => {
+    axiosInstance.put("/data", {
+      email: e.target.className,
+      points: e.target.nextElementSibling.value,
+    });
+  };
   const findClosestMatch = (objects, searchStr) => {
     if (searchStr === "") {
       setSearchedCA(objects);
@@ -26,11 +30,7 @@ export const Leaderboard = ({ data, admin }) => {
       );
     });
     setSearchedCA(matches);
-  }
-
-  useEffect(() => { 
-    findClosestMatch(data, searchValue) 
-  }, [searchValue])
+  };
 
   return (
     <LeaderboardContainer>
@@ -57,34 +57,43 @@ export const Leaderboard = ({ data, admin }) => {
             </div>
             {searchValue === ""
               ? data.map((element) => (
-                <div className="tr" key={uuidv4()}>
-                  <div className="td">{element.rank}</div>
-                  <div className="td">{element.name}</div>
-                  <div className="td">{element.college}</div>
-                  <div className="td">{element.points}</div>
-                  {
-                    admin ? <>
-                      <button onClick={submitPoints} className={element.email}>Submit</button>
-                      <input type="number" />
-                    </> : null
-                  }
-
-                </div>
-              ))
+                  <div className="tr" key={uuidv4()}>
+                    <div className="td">{element.rank}</div>
+                    <div className="td">{element.name}</div>
+                    <div className="td">{element.college}</div>
+                    <div className="td">{element.points}</div>
+                    {admin ? (
+                      <>
+                        <button
+                          onClick={submitPoints}
+                          className={element.email}
+                        >
+                          Submit
+                        </button>
+                        <input type="number" />
+                      </>
+                    ) : null}
+                  </div>
+                ))
               : searchedCA.map((element) => (
-                <div className="tr" key={uuidv4()}>
-                  <div className="td">{element.rank}</div>
-                  <div className="td">{element.name}</div>
-                  <div className="td">{element.college}</div>
-                  <div className="td">{element.points}</div>
-                  {
-                    admin ? <>
-                      <button onClick={submitPoints} className={element.email}>Submit</button>
-                      <input type="number" />
-                    </> : null
-                  }
-                </div>
-              ))}
+                  <div className="tr" key={uuidv4()}>
+                    <div className="td">{element.rank}</div>
+                    <div className="td">{element.name}</div>
+                    <div className="td">{element.college}</div>
+                    <div className="td">{element.points}</div>
+                    {admin ? (
+                      <>
+                        <button
+                          onClick={submitPoints}
+                          className={element.email}
+                        >
+                          Submit
+                        </button>
+                        <input type="number" />
+                      </>
+                    ) : null}
+                  </div>
+                ))}
           </div>
         </div>
       </div>
@@ -187,11 +196,11 @@ const LeaderboardContainer = styled.div`
           border: 1px solid rgba(230, 214, 181, 0.2);
         }
       }
-      input{
+      input {
         color: black;
         padding: 12px;
       }
-      button{
+      button {
         background-color: #e6d6b5;
         color: #a3724f;
       }

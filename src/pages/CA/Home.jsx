@@ -36,16 +36,20 @@ export const Home = () => {
   };
 
   useEffect(() => {
-    if (window.location.pathname === "/campus-ambassador/login") {
+    if (location.pathname === "/campus-ambassador/login") {
       setOutlet("login");
-    } else if (window.location.pathname === "/campus-ambassador/register") {
+      console.log("On login")
+    } else if (location.pathname === "/campus-ambassador/register") {
       setOutlet("register");
-    } else if (window.location.pathname === "/campus-ambassador/dashboard") {
+      console.log("On register")
+    } else if (location.pathname === "/campus-ambassador/dashboard") {
       setOutlet("dashboard");
+      console.log("On dashboard")
     } else {
       setOutlet("");
+      console.log("On home")
     }
-  }, [location]);
+  }, [location,outlet]);
 
   return (
     

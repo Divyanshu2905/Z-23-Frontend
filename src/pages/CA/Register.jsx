@@ -123,7 +123,7 @@ export const Register = () => {
   };
   const handleGoogleRegister = async () => {
     const provider = new GoogleAuthProvider();
-    await signInWithPopup(auth, provider)
+    signInWithPopup(auth, provider)
       .then((result) => {
         axiosInstance
           .get("/user", {
