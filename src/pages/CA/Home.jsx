@@ -48,6 +48,7 @@ export const Home = () => {
   }, [location]);
 
   return (
+    
     <>
       <HeaderContainer>
         <nav onClick={scrollToTop}>

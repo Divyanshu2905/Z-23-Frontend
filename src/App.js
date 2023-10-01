@@ -54,7 +54,7 @@ function App() {
 
             {/* <Route path="cultural-fest" element={"Main Page"}></Route> */}
             {/* <Route path="events" element={<Events/>}></Route> */}
-            <Route path="*" element={<Navigate to="/campus-ambassador" />} />
+            <Route path="*" element={<Navigate to="campus-ambassador" />} />
           </Routes>
         </>
       {/* )} */}

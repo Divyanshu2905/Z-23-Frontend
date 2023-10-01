@@ -6,16 +6,16 @@ import { Provider } from "react-redux";
 import store from "./redux/store";
 import { persistor } from "./redux/store";
 import { PersistGate } from "redux-persist/integration/react";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter,HashRouter } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
       <React.StrictMode>
-        <BrowserRouter>
+        <HashRouter>
           <App />
-        </BrowserRouter>
+        </HashRouter>
       </React.StrictMode>{" "}
     </PersistGate>{" "}
   </Provider>

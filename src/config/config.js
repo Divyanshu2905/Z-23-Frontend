@@ -1,3 +1,2 @@
 import axios from 'axios'
-require("dotenv").config()
-export const axiosInstance = axios.create({baseURL: process.env.SERVER_URL})
+export const axiosInstance = axios.create({baseURL: "http://www.api.zeitgeistrpr.com"})
