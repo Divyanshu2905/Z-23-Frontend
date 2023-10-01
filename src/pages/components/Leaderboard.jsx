@@ -17,7 +17,7 @@ export const Leaderboard = ({ data, admin }) => {
       points: e.target.nextElementSibling.value,
     });
   };
-  const findClosestMatch = (objects, searchStr) => {
+  const findClosestMatch = (objects, searchStr="") => {
     if (searchStr === "") {
       setSearchedCA(objects);
     }
