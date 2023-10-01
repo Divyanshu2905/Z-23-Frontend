@@ -1,2 +1,2 @@
 import axios from 'axios'
-export const axiosInstance = axios.create({baseURL: "http://www.api.zeitgeistrpr.com"})
+export const axiosInstance = axios.create({baseURL: "http://api.zeitgeistrpr.com"})

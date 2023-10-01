@@ -5,15 +5,15 @@ import { useSelector } from 'react-redux'
 
 import ProtectedRoute from "./utils/protectedRoute";
 
-import { Dashboard } from "./pages/CA/Dashboard";
-import { Loader } from "./pages/components/Loader/Loader";
-import Landing from "./pages/Windows/Landing";
+// import { Dashboard } from "./pages/CA/Dashboard";
+// import { Loader } from "./pages/components/Loader/Loader";
+// import Landing from "./pages/Windows/Landing";
 import { Home as CaHome } from "./pages/CA/Home";
 import { Register } from "./pages/CA/Register"
 import { Login } from "./pages/CA/Login"
-import { Events } from "./pages/Main/Event/Events";
-import { Home } from "./pages/Main/Home/Home";
-import { Faq } from "./pages/Main/Faq/Faq";
+// import { Events } from "./pages/Main/Event/Events";
+// import { Home } from "./pages/Main/Home/Home";
+// import { Faq } from "./pages/Main/Faq/Faq";
 // import Navbar from "./pages/components/Navbar/Navbar";
 
 
