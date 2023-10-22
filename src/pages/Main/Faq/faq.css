@@ -59,6 +59,7 @@
   }
 
   #dabba {
+    width: 100%;
     position: absolute;
     top: 0;
     left: 0;
@@ -169,6 +170,9 @@
 
   /* Font size for mobile screens */
   @media (max-width: 768px) {
+    .outer{
+      display: none;
+    }
     .typ {
       font-size: 16px;
     }

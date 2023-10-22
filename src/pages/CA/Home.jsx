@@ -18,6 +18,7 @@ export const Home = () => {
   const [outlet, setOutlet] = useState("");
   const location = useLocation();
   const navigate = useNavigate();
+  
   const logout = () => {
     dispatch({
       type: "GET_CA_ACTION",
@@ -38,113 +39,112 @@ export const Home = () => {
   useEffect(() => {
     if (location.pathname === "/campus-ambassador/login") {
       setOutlet("login");
-      console.log("On login")
     } else if (location.pathname === "/campus-ambassador/register") {
       setOutlet("register");
-      console.log("On register")
     } else if (location.pathname === "/campus-ambassador/dashboard") {
       setOutlet("dashboard");
-      console.log("On dashboard")
     } else {
       setOutlet("");
-      console.log("On home")
     }
-  }, [location,outlet]);
+  }, [location, outlet]);
 
   return (
-    
     <>
-      <HeaderContainer>
-        <nav onClick={scrollToTop}>
-          {getCaUser.isVerified ? (
-            <>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                style={{ width: "15vmax", aspectRatio: "3.23/1" }}
-                viewBox="0 0 268 83"
-                fill="none"
-              >
-                <path
-                  d="M0.5 0.5H267.5V56.9166L134 82.4909L0.5 56.9166V0.5Z"
-                  fill="#6B3522"
-                  stroke="#F8F2D8"
-                />
-              </svg>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                style={{ width: "14.25vmax", aspectRatio: "3.23/1" }}
-                viewBox="0 0 253 77"
-                fill="none"
-              >
-                <path
-                  d="M1 0.5H0.5V1V52.1134V52.5305L0.910298 52.6053L126.41 75.4919L126.5 75.5082L126.59 75.4919L252.09 52.6053L252.5 52.5305V52.1134V1V0.5H252H1Z"
-                  stroke="#F8F2D8"
-                />
-              </svg>
-            </>
-          ) : (
-            <>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                style={{
-                  width: "8vmax",
-                  aspectRatio: "1.69/1",
-                  translate: "0 -20%",
-                }}
-                viewBox="0 0 145 83"
-                fill="none"
-              >
-                <path
-                  d="M0.5 0.5H144.5V56.9765L72.5 82.4696L0.5 56.9765V0.5Z"
-                  fill="#6B3522"
-                  stroke="#F8F2D8"
-                />
-              </svg>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                style={{
-                  width: "8.5vmax",
-                  aspectRatio: "1.69/1",
-                  translate: "0 -20%",
-                }}
-                viewBox="0 0 130 77"
-                fill="none"
-              >
-                <path
-                  d="M1 0.5H0.5V1V52.1134V52.4656L0.83164 52.5842L64.8316 75.4708L65 75.531L65.1684 75.4708L129.168 52.5842L129.5 52.4656V52.1134V1V0.5H129H1Z"
-                  stroke="#F8F2D8"
-                />
-              </svg>
-            </>
-          )}
+      {outlet === "dashboard" ? (
+        <Outlet />
+      ) : (
+        <>
+          <HeaderContainer>
+            <nav onClick={scrollToTop}>
+              {getCaUser.isVerified ? (
+                <>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    style={{ width: "15vmax", aspectRatio: "3.23/1" }}
+                    viewBox="0 0 268 83"
+                    fill="none"
+                  >
+                    <path
+                      d="M0.5 0.5H267.5V56.9166L134 82.4909L0.5 56.9166V0.5Z"
+                      fill="#6B3522"
+                      stroke="#F8F2D8"
+                    />
+                  </svg>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    style={{ width: "14.25vmax", aspectRatio: "3.23/1" }}
+                    viewBox="0 0 253 77"
+                    fill="none"
+                  >
+                    <path
+                      d="M1 0.5H0.5V1V52.1134V52.5305L0.910298 52.6053L126.41 75.4919L126.5 75.5082L126.59 75.4919L252.09 52.6053L252.5 52.5305V52.1134V1V0.5H252H1Z"
+                      stroke="#F8F2D8"
+                    />
+                  </svg>
+                </>
+              ) : (
+                <>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    style={{
+                      width: "8vmax",
+                      aspectRatio: "1.69/1",
+                      translate: "0 -20%",
+                    }}
+                    viewBox="0 0 145 83"
+                    fill="none"
+                  >
+                    <path
+                      d="M0.5 0.5H144.5V56.9765L72.5 82.4696L0.5 56.9765V0.5Z"
+                      fill="#6B3522"
+                      stroke="#F8F2D8"
+                    />
+                  </svg>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    style={{
+                      width: "8.5vmax",
+                      aspectRatio: "1.69/1",
+                      translate: "0 -20%",
+                    }}
+                    viewBox="0 0 130 77"
+                    fill="none"
+                  >
+                    <path
+                      d="M1 0.5H0.5V1V52.1134V52.4656L0.83164 52.5842L64.8316 75.4708L65 75.531L65.1684 75.4708L129.168 52.5842L129.5 52.4656V52.1134V1V0.5H129H1Z"
+                      stroke="#F8F2D8"
+                    />
+                  </svg>
+                </>
+              )}
 
-          <div className="navbar">
-            <button>Home</button>
-            {getCaUser.isVerified ? (
-              <button onClick={logout}>Logout</button>
-            ) : null}
-          </div>
-        </nav>
-      </HeaderContainer>
-      <MainContainer>
-        {outlet === "dashboard" ? (
-          <Outlet />
-        ) : outlet === "" ? (
-          <>
-            <LandingSection isVerified={getCaUser.isVerified} />
-            <AboutSection />
-            <ParticipateSection />
-            <RoleSection />
-            <OffersSection />
-            <TestimonialsSection />
-          </>
-        ) : (
-          <>
-            <LandingSection isVerified={getCaUser.isVerified} />
-            <Outlet />
-          </>
-        )}
-      </MainContainer>
+              <div className="navbar">
+                <button>Home</button>
+                {getCaUser.isVerified ? (
+                  <button onClick={logout}>Logout</button>
+                ) : null}
+              </div>
+            </nav>
+          </HeaderContainer>
+          <MainContainer>
+            {outlet === "" ? (
+              <>
+                <LandingSection isVerified={getCaUser.isVerified} />
+                <AboutSection />
+                <ParticipateSection />
+                <RoleSection />
+                <OffersSection />
+                <TestimonialsSection />
+              </>
+            ) : (
+              <>
+                <LandingSection isVerified={getCaUser.isVerified} />
+                <Outlet />
+              </>
+            )}
+          </MainContainer>
+        </>
+      )}
       {outlet !== "" ? null : (
         <footer>
           <Footer />

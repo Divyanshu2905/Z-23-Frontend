@@ -1,2 +1,4 @@
-import axios from 'axios'
-export const axiosInstance = axios.create({baseURL: "http://api.zeitgeistrpr.com"})
+import axios from "axios";
+export const axiosInstance = axios.create({
+  baseURL: "https://api.zeitgeistrpr.com",
+});

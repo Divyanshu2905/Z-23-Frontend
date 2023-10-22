@@ -5,11 +5,11 @@ import { useNavigate } from "react-router-dom";
 
 export default function Landing() {
   const navigate = useNavigate();
+
   return (
     <div className="firstlayer">
       <div className="secondlayer">
         <div className="thirdlayer">
-          <img src="https://firebasestorage.googleapis.com/v0/b/zeitgeist-23.appspot.com/o/Resources%2FLanding%2Fresources%2FLights.png?alt=media&token=d18ec135-61d6-404d-9cb1-28ab2c1f512b" alt="" />
           <div id="zeitgeist">
             <div className="z">Zeitgeist</div>
           </div>
@@ -18,33 +18,62 @@ export default function Landing() {
               <div className="menu-bar">
                 <div className="top">
                   <div className="current">
-                    <img src="https://firebasestorage.googleapis.com/v0/b/zeitgeist-23.appspot.com/o/Resources%2FLanding%2Fresources%2Fcross.png?alt=media&token=55d24cad-f616-4d53-99fb-6f9d39403fe6" alt="" />
+                    <img
+                      src="https://firebasestorage.googleapis.com/v0/b/zeitgeist-23.appspot.com/o/Resources%2FLanding%2Fresources%2Fcross.png?alt=media&token=55d24cad-f616-4d53-99fb-6f9d39403fe6"
+                      alt=""
+                    />
                   </div>
                   <div className="new-tab">
-                    <img src="https://firebasestorage.googleapis.com/v0/b/zeitgeist-23.appspot.com/o/Resources%2FLanding%2Fresources%2Fplus.png?alt=media&token=d355a2d0-db7c-46f6-9f41-fd60e61516fb" alt="" />
+                    <img
+                      src="https://firebasestorage.googleapis.com/v0/b/zeitgeist-23.appspot.com/o/Resources%2FLanding%2Fresources%2Fplus.png?alt=media&token=d355a2d0-db7c-46f6-9f41-fd60e61516fb"
+                      alt=""
+                    />
                   </div>
                   <div className="btns">
-                    <img src="https://firebasestorage.googleapis.com/v0/b/zeitgeist-23.appspot.com/o/Resources%2FLanding%2Fresources%2Fclose_minimize.png?alt=media&token=fc6d1ad9-bb12-49a7-8d17-9f6387ffd4f6" alt="" />
+                    <img
+                      src="https://firebasestorage.googleapis.com/v0/b/zeitgeist-23.appspot.com/o/Resources%2FLanding%2Fresources%2Fclose_minimize.png?alt=media&token=fc6d1ad9-bb12-49a7-8d17-9f6387ffd4f6"
+                      alt=""
+                    />
                   </div>
                 </div>
                 <div className="bottom">
                   <div className="navigation">
-                    <img src="https://firebasestorage.googleapis.com/v0/b/zeitgeist-23.appspot.com/o/Resources%2FLanding%2Fresources%2Farrows.png?alt=media&token=c75e6ddb-8e23-46b2-9a2c-9b9ba171bf88" alt="" />
-                    <img src="https://firebasestorage.googleapis.com/v0/b/zeitgeist-23.appspot.com/o/Resources%2FLanding%2Fresources%2Freload.png?alt=media&token=1493c70a-8e9a-4c3f-8729-ec191040d4c7" alt="" />
+                    <img
+                      src="https://firebasestorage.googleapis.com/v0/b/zeitgeist-23.appspot.com/o/Resources%2FLanding%2Fresources%2Farrows.png?alt=media&token=c75e6ddb-8e23-46b2-9a2c-9b9ba171bf88"
+                      alt=""
+                    />
+                    <img
+                      src="https://firebasestorage.googleapis.com/v0/b/zeitgeist-23.appspot.com/o/Resources%2FLanding%2Fresources%2Freload.png?alt=media&token=1493c70a-8e9a-4c3f-8729-ec191040d4c7"
+                      alt=""
+                    />
                   </div>
                   <div className="url-bar">
-                    <img src="https://firebasestorage.googleapis.com/v0/b/zeitgeist-23.appspot.com/o/Resources%2FLanding%2Fresources%2FVector9.png?alt=media&token=4cae073b-0d9e-4a62-a4d8-e82917b57b6a" alt="" />
+                    <img
+                      src="https://firebasestorage.googleapis.com/v0/b/zeitgeist-23.appspot.com/o/Resources%2FLanding%2Fresources%2FVector9.png?alt=media&token=4cae073b-0d9e-4a62-a4d8-e82917b57b6a"
+                      alt=""
+                    />
                   </div>
                 </div>
               </div>
               <div className="content-section">
-                <div style={{display: "flex", width: "100%"}}>
-                  <LandingButton className='export' text='Website' onclick={()=>{ navigate("/home")}}></LandingButton>
-                  <LandingButton className='export' text='CA Portal' onclick={() => { navigate("/campus-ambassador") }}></LandingButton>
+                <div style={{ display: "flex", width: "100%" }}>
+                  <LandingButton
+                    className="export"
+                    text="Events"
+                    onclick={() => {
+                      navigate("/events");
+                    }}
+                  ></LandingButton>
+                  <LandingButton
+                    className="export"
+                    text="CA Portal"
+                    onclick={() => {
+                      navigate("/campus-ambassador");
+                    }}
+                  ></LandingButton>
                 </div>
               </div>
             </div>
-
           </div>
         </div>
         <div className="buttonlayer">

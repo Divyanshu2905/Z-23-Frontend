@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
-import { SideLines } from "../../../components/SideLines";
+import { SideLines } from "../../SideLines";
 import { Testimonials } from "../../../components/Cards/TestimonialCard";
 import { TestimonialDetailedCard } from "../../../components/Cards/TestimonialDetailedCard";
 
@@ -17,13 +17,19 @@ export const TestimonialsSection = () => {
     return () => clearInterval(interval);
   }, []);
   return (
-    <TestimonialsContainer className="section testimonials" >
+    <TestimonialsContainer className="section testimonials">
       <SideLines></SideLines>
       <div className="heading">
-        <img src="https://firebasestorage.googleapis.com/v0/b/zeitgeist-23.appspot.com/o/Resources%2FCA%2Fresources%2FDarkArrow.svg?alt=media&token=5abc1a03-3f83-469b-b2c0-91c7d062b47f" alt="" />
+        <img
+          src="https://firebasestorage.googleapis.com/v0/b/zeitgeist-23.appspot.com/o/Resources%2FCA%2Fresources%2FDarkArrow.svg?alt=media&token=5abc1a03-3f83-469b-b2c0-91c7d062b47f"
+          alt=""
+        />
 
         <span>Testimonials</span>
-        <img src="https://firebasestorage.googleapis.com/v0/b/zeitgeist-23.appspot.com/o/Resources%2FCA%2Fresources%2FDarkArrow.svg?alt=media&token=5abc1a03-3f83-469b-b2c0-91c7d062b47f" alt="" />
+        <img
+          src="https://firebasestorage.googleapis.com/v0/b/zeitgeist-23.appspot.com/o/Resources%2FCA%2Fresources%2FDarkArrow.svg?alt=media&token=5abc1a03-3f83-469b-b2c0-91c7d062b47f"
+          alt=""
+        />
       </div>
       <div className="wrapper">
         <div className="list-container">
@@ -38,13 +44,32 @@ export const TestimonialsSection = () => {
           ))}
         </div>
         <div className="nav-btn">
-          <button className={`btn ${selected === 0 ? "active" : ""}`} onClick={()=> setSelected(0)} ></button>
-          <button className={`btn ${selected === 1 ? "active" : ""}`} onClick={()=> setSelected(1)} ></button>
-          <button className={`btn ${selected === 2 ? "active" : ""}`} onClick={()=> setSelected(2)} ></button>
+          <button
+            className={`btn ${selected === 0 ? "active" : ""}`}
+            onClick={() => {
+              setSelected(0);
+            }}
+          ></button>
+          <button
+            className={`btn ${selected === 1 ? "active" : ""}`}
+            onClick={() => {
+              setSelected(1);
+            }}
+          ></button>
+          <button
+            className={`btn ${selected === 2 ? "active" : ""}`}
+            onClick={() => {
+              setSelected(2);
+            }}
+          ></button>
         </div>
         <div className="full-container">
           <div className="detailed-view">
-            <TestimonialDetailedCard name={testimonialsArray[selected].name} college={testimonialsArray[selected].college} description={testimonialsArray[selected].description}/>
+            <TestimonialDetailedCard
+              name={testimonialsArray[selected].name}
+              college={testimonialsArray[selected].college}
+              description={testimonialsArray[selected].description}
+            />
           </div>
         </div>
       </div>
@@ -68,14 +93,16 @@ const TestimonialsContainer = styled.section`
       flex-direction: column;
       align-items: center;
     }
-    
+
     .list-container {
       justify-content: space-between;
       width: 50%;
     }
     .nav-btn {
       justify-content: center;
+      z-index: 1;
       .btn {
+        cursor: pointer;
         width: 15px;
         height: 15px;
         border-radius: 50%;
@@ -104,22 +131,22 @@ const TestimonialsContainer = styled.section`
         background: var(--lightest, #f8f2d8);
       }
     }
-    @media screen and (max-width: 768px){
+    @media screen and (max-width: 768px) {
       flex-direction: column;
-      flex:1;
-      .list-container{
+      flex: 1;
+      .list-container {
         display: none;
       }
-      .nav-btn{
+      .nav-btn {
         flex-direction: row;
         height: fit-content;
-        .btn{
+        .btn {
           margin: 0px 5px;
           width: 10px;
           height: 10px;
         }
       }
-      .full-container{
+      .full-container {
         padding: 3% 0;
       }
     }

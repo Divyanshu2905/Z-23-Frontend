@@ -26,7 +26,7 @@ const CardContainer = styled.div`
   width: 30%; /* Set the width to 100% to match the parent container */
   aspect-ratio: 1.11/1;
   color: #f8f2d8;
-  font-family: 'Jost';
+  font-family: "Jost";
   font-weight: 400;
   .content {
     width: 100%;

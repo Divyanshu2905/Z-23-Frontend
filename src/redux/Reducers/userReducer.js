@@ -1,8 +1,5 @@
 const initialState = {
-  result: {
-      email: "",
-      private_key: ""
-  }
+  result: {},
 };
 export default function getuserReducer(state = initialState, action) {
   switch (action.type) {

@@ -1,5 +1,5 @@
 import { Carousel } from "../../components/Carousel/Carousel";
-import { SideLines } from "../../components/SideLines";
+import { SideLines } from "../SideLines";
 import { styled } from "styled-components";
 import React from "react";
 
@@ -8,9 +8,15 @@ export const OffersSection = () => {
     <OffersContainer className="section offers">
       <SideLines></SideLines>
       <div className="heading">
-        <img src="https://firebasestorage.googleapis.com/v0/b/zeitgeist-23.appspot.com/o/Resources%2FCA%2Fresources%2FLightArrow.svg?alt=media&token=400a5de8-8ec6-4e18-a1c7-2b0de6974136" alt="" />
+        <img
+          src="https://firebasestorage.googleapis.com/v0/b/zeitgeist-23.appspot.com/o/Resources%2FCA%2Fresources%2FLightArrow.svg?alt=media&token=400a5de8-8ec6-4e18-a1c7-2b0de6974136"
+          alt=""
+        />
         <span>What we offer!</span>
-        <img src="https://firebasestorage.googleapis.com/v0/b/zeitgeist-23.appspot.com/o/Resources%2FCA%2Fresources%2FLightArrow.svg?alt=media&token=400a5de8-8ec6-4e18-a1c7-2b0de6974136" alt="" />
+        <img
+          src="https://firebasestorage.googleapis.com/v0/b/zeitgeist-23.appspot.com/o/Resources%2FCA%2Fresources%2FLightArrow.svg?alt=media&token=400a5de8-8ec6-4e18-a1c7-2b0de6974136"
+          alt=""
+        />
       </div>
       <Carousel />
     </OffersContainer>

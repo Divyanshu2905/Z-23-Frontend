@@ -29,7 +29,7 @@ const CardContainer = styled.div`
   flex-direction: column;
   width: 100%;
   height: 32%;
-  justify-content: space-between;
+  justify-content: center;
   align-items: flex-start;
   flex-shrink: 0;
   border-radius: 6px;
@@ -38,7 +38,7 @@ const CardContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: flex-start;
+    justify-content: space-evenly;
     width: 100%;
     height: 50%;
     overflow-y: hidden;
@@ -53,7 +53,6 @@ const CardContainer = styled.div`
       height: 50%;
     }
     .details {
-      height: 50%;
       color: var(--light-1, #e6d6b5);
       font-family: "Jost";
       font-size: 1vmax;

@@ -1,22 +1,21 @@
 import { styled } from "styled-components";
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 import React from "react";
 import { Fancy } from "../../components/Buttons/Fancy";
-import { SideLines } from "../../components/SideLines";
+import { SideLines } from "../SideLines";
 
-export const LandingSection = ({isVerified}) => {
+export const LandingSection = ({ isVerified }) => {
   const navigate = useNavigate();
 
-  const handleAuth = ()=>{
-    if(!isVerified){
-      navigate("register")
+  const handleAuth = () => {
+    if (!isVerified) {
+      navigate("register");
+    } else {
+      navigate("dashboard");
     }
-    else{
-      navigate("dashboard")
-    }
-  }
+  };
   return (
-    <LandingContainer className="home" >
+    <LandingContainer className="home">
       <SideLines iconsPresent={true}></SideLines>
       <svg
         className="spotlight"
@@ -44,7 +43,10 @@ export const LandingSection = ({isVerified}) => {
       </svg>
       <div className="shadow"></div>
       <div className="logo">
-        <img src="https://firebasestorage.googleapis.com/v0/b/zeitgeist-23.appspot.com/o/Resources%2FCA%2Fresources%2FLogo%20Ornate.svg?alt=media&token=0afb06f7-2c62-454e-af5c-5b840963fceb" alt="" />
+        <img
+          src="https://firebasestorage.googleapis.com/v0/b/zeitgeist-23.appspot.com/o/Resources%2FCA%2Fresources%2FLogo%20Ornate.svg?alt=media&token=0afb06f7-2c62-454e-af5c-5b840963fceb"
+          alt=""
+        />
       </div>
       <div className="title">
         <span>Campus</span>
@@ -52,7 +54,11 @@ export const LandingSection = ({isVerified}) => {
         <span>Program</span>
       </div>
       <div className="btn-container">
-        <Fancy onClick={handleAuth} text={isVerified?"PROFILE":"JOIN US"} ></Fancy>
+        <Fancy
+          onClick={handleAuth}
+          text={isVerified ? "PROFILE" : "JOIN US"}
+          variant="light"
+        ></Fancy>
       </div>
     </LandingContainer>
   );
@@ -84,7 +90,6 @@ const LandingContainer = styled.section`
     transform: rotateY(180deg);
   }
   .title {
-    translate: 0 -40%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -101,14 +106,14 @@ const LandingContainer = styled.section`
     width: 100%;
     display: flex;
     justify-content: center;
-    img{
+    img {
       width: 60vmin;
-      @media screen and (max-width: 425px){
+      @media screen and (max-width: 425px) {
         width: 80vmin;
       }
     }
   }
-  >svg {
+  > svg {
     position: absolute;
     top: -10%;
     width: 50vw;
@@ -150,20 +155,20 @@ const LandingContainer = styled.section`
       }
     }
   }
-  .btn-container{
-    translate: 0 -40%;
+  .btn-container {
     height: 20vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    @media screen and (max-width: 425px){
-      .fancy-btn{
+    @media screen and (max-width: 425px) {
+      .fancy-btn {
         width: 50vw;
       }
     }
   }
   @media screen and (max-width: 640px) {
-    >svg, .shadow{
+    > svg,
+    .shadow {
       display: none;
     }
   }

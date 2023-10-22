@@ -1,28 +1,45 @@
 import React, { useState } from "react";
 import { styled } from "styled-components";
 export const FormInput = ({ placeholder, onchange, value, name, type }) => {
-  const [visibility, setVisibility] = useState(type === "password" ? false : true);
+  const [visibility, setVisibility] = useState(
+    type === "password" ? false : true
+  );
   const toggleVisibility = () => {
     setVisibility(!visibility);
   };
   return (
     <InputContainer>
-      {
-        type === "select" ? <>
-          <select id="genderSelect" name={name} value={value} onChange={onchange} >
-            <option name="gender" value="Gender" >Gender</option>
-            <option name="gender" value="Male" >Male</option>
-            <option name="gender" value="Female" >Female</option>
-            <option name="gender" value="Prefer not say" >Prefer not say</option>
+      {type === "select" ? (
+        <>
+          <select
+            id="genderSelect"
+            name={name}
+            value={value}
+            onChange={onchange}
+          >
+            <option name="gender" value="Gender">
+              Gender
+            </option>
+            <option name="gender" value="Male">
+              Male
+            </option>
+            <option name="gender" value="Female">
+              Female
+            </option>
+            <option name="gender" value="Prefer not say">
+              Prefer not say
+            </option>
           </select>
-        </> : (<input
+        </>
+      ) : (
+        <input
           type={visibility ? (type === "password" ? "text" : type) : "password"}
           placeholder={placeholder ? placeholder : "Input field"}
           name={name}
           onChange={onchange}
           value={value}
-        />)
-      }
+        />
+      )}
 
       {placeholder === "Password" || placeholder === "Confirm Password" ? (
         <div className="eye" onClick={toggleVisibility}>
@@ -66,14 +83,15 @@ const InputContainer = styled.div`
   align-items: center;
   border-radius: 2px;
   border: 2px solid var(--darkestt, #723e30);
-  margin-bottom: 24px;
+  /* margin-bottom: 24px; */
   input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  appearance: none;
-  margin: 0;
-}
-  input, select {
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+  }
+  input,
+  select {
     width: 80%;
     background-color: transparent;
     color: #926154;
@@ -90,7 +108,7 @@ input[type="number"]::-webkit-outer-spin-button {
       font-weight: 400;
     }
   }
-  .eye{
+  .eye {
     svg {
       width: max(1vw, 1.6vh);
       aspect-ratio: 1/1;

@@ -1,63 +1,70 @@
 import "./App.css";
-import { Route, Routes, Navigate, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { useSelector } from 'react-redux'
+import { Route, Routes, Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import ProtectedRoute from "./utils/protectedRoute";
 
-// import { Dashboard } from "./pages/CA/Dashboard";
-// import { Loader } from "./pages/components/Loader/Loader";
-// import Landing from "./pages/Windows/Landing";
+import { Dashboard } from "./pages/CA/Dashboard/Dashboard";
+import Landing from "./pages/Windows/Landing";
 import { Home as CaHome } from "./pages/CA/Home";
-import { Register } from "./pages/CA/Register"
-import { Login } from "./pages/CA/Login"
-// import { Events } from "./pages/Main/Event/Events";
-// import { Home } from "./pages/Main/Home/Home";
-// import { Faq } from "./pages/Main/Faq/Faq";
-// import Navbar from "./pages/components/Navbar/Navbar";
-
-
+import { CaRegister } from "./pages/CA/Auth/CaRegister";
+import { CaLogin } from "./pages/CA/Auth/CaLogin";
+import { Events } from "./pages/Main/Event/Events";
+import { MainRegister } from "./pages/Main/Auth/MainRegister";
+import { MainLogin } from "./pages/Main/Auth/MainLogin";
 
 function App() {
-  const navigate = useNavigate()
-  const [loading, setLoading] = useState(true);
-  // const getuser = useSelector((state) => state.user).result;
   const getCaUser = useSelector((state) => state.ca).result;
-
-  useEffect(() => {
-    window.onload = () => {
-      setLoading(false);
-    };
-    setTimeout(() => {
-      if (loading) {
-        setLoading(false);
-      }
-    }, 5000);
-  }, []);
+  const getMainUser = useSelector((state) => state.user).result;
   return (
     <>
-      {/* {loading && <Loader />}
-      {!loading && ( */}
-        <>
-          {/* <Navbar/> */}
-          <Routes>
-            <Route path="/" index element={<Navigate to={"campus-ambassador"} />} />
+      <>
+        <Routes>
+          <Route path="/" index element={<Landing />} />
+          <>
             {/* <Route path="home" index element={<Home />} /> */}
-            {/* <Route path="faq" index element={<Faq />} />
-            <Route path="tnc" index element={<Faq />} /> */}
-            {/* <Route path="events" index element={<Events />} /> */}
-            <Route path="campus-ambassador" element={<CaHome />}>
-              <Route path="register" element={<Register />}></Route>
-              <Route path="login" element={<Login />}></Route>
-              <Route path="dashboard" element={<ProtectedRoute isLoggedIn={Object.keys(getCaUser).length === 0 ? false : true} />}></Route>
-            </Route>
-
-            {/* <Route path="cultural-fest" element={"Main Page"}></Route> */}
-            {/* <Route path="events" element={<Events/>}></Route> */}
-            <Route path="*" element={<Navigate to="campus-ambassador" />} />
-          </Routes>
-        </>
-      {/* )} */}
+            {/* <Route path="faq" index element={<Faq />} /> */}
+            {/* <Route path="tnc" index element={<TnC />} /> */}
+            <Route path="login" element={<MainLogin />} />
+            <Route path="register" element={<MainRegister />} />
+            <Route
+              path="events"
+              element={
+                <ProtectedRoute
+                  Component={Events}
+                  redirectUrl={"/login"}
+                  isLoggedIn={
+                    Object.keys(getMainUser).length === 0 ||
+                    Object.keys(getMainUser).length === 1
+                      ? false
+                      : true
+                  }
+                />
+              }
+            />
+          </>
+          <Route path="campus-ambassador" element={<CaHome />}>
+            <Route path="register" element={<CaRegister />}></Route>
+            <Route path="login" element={<CaLogin />}></Route>
+            <Route
+              path="dashboard"
+              element={
+                <ProtectedRoute
+                  Component={Dashboard}
+                  redirectUrl={"/campus-ambassador/login"}
+                  isLoggedIn={
+                    Object.keys(getCaUser).length === 0 ||
+                    Object.keys(getCaUser).length === 1
+                      ? false
+                      : true
+                  }
+                />
+              }
+            />
+          </Route>
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      </>
     </>
   );
 }
