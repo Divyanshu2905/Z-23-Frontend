@@ -14,7 +14,7 @@ export const Leaderboard = ({ data, admin }) => {
   };
   const submitPoints = (e) => {
     if (e.target.nextElementSibling.value < 100) {
-      axiosInstance.put("/data", {
+      axiosInstance.put("/ca-data", {
         email: e.target.className,
         points: e.target.nextElementSibling.value,
       });
