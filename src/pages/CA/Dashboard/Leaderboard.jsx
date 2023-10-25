@@ -2,35 +2,16 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { AiOutlineSearch } from "react-icons/ai";
 import { v4 as uuidv4 } from "uuid";
-import { axiosInstance } from "../../../config/config";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 
-export const Leaderboard = ({ data, admin }) => {
+export const Leaderboard = ({ data, admin, submitPoints }) => {
   const [searchValue, setValue] = useState("");
   const [searchedCA, setSearchedCA] = useState([]);
   const onInputChange = (e) => {
     setValue(e.target.value);
     findClosestMatch(data, searchValue);
   };
-  const submitPoints = (e) => {
-    if (e.target.nextElementSibling.value < 100) {
-      axiosInstance.put("/ca-data", {
-        email: e.target.className,
-        points: e.target.nextElementSibling.value,
-      });
-    } else {
-      toast.error("Too much points!", {
-        position: "top-center",
-        autoClose: 800,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        pauseOnFocusLoss: false,
-        draggable: true,
-        theme: "dark",
-      });
-    }
-  };
+  
   const findClosestMatch = (objects, searchStr = "") => {
     if (searchStr === "") {
       setSearchedCA(objects);

@@ -55,7 +55,7 @@ const CardContainer = styled.div`
       padding-inline: 15%;
       height: 100%;
       @media screen and (max-width: 820px) {
-        overflow-y: scroll;
+        overflow-y: auto;
       }
       .points {
         margin: 12px 0;

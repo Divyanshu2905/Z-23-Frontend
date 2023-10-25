@@ -1,5 +1,7 @@
 const initialState = {
-  result: {},
+  result: {
+    isVerified: false
+  },
 };
 export default function getuserReducer(state = initialState, action) {
   switch (action.type) {

@@ -23,6 +23,37 @@ export const Dashboard = () => {
     : 0;
   const [otherDetails, setOtherDetails] = useState("guidelines");
 
+  const submitPoints = (e) => {
+    if (e.target.nextElementSibling.value < 100) {
+      axiosInstance.put("/ca-data", {
+        email: e.target.className,
+        points: parseInt(e.target.nextElementSibling.value),
+      });
+      e.target.nextElementSibling.value = "";
+      toast.success("Submitted!", {
+        position: "top-center",
+        autoClose: 800,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        pauseOnFocusLoss: false,
+        draggable: true,
+        theme: "dark",
+      });
+        
+    } else {
+      toast.error("Too much points!", {
+        position: "top-center",
+        autoClose: 800,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        pauseOnFocusLoss: false,
+        draggable: true,
+        theme: "dark",
+      });
+    }
+  };
   let componentToRender;
   switch (otherDetails) {
     case "guidelines":
@@ -36,6 +67,7 @@ export const Dashboard = () => {
         <Leaderboard
           data={getLeaderboard}
           admin={getCaUser.isAdmin}
+          submitPoints={submitPoints}
         ></Leaderboard>
       );
       break;
@@ -98,6 +130,7 @@ export const Dashboard = () => {
     navigate("/campus-ambassador");
   };
 
+  
   useEffect(() => {
     //Fetching leaderboard
     axiosInstance
@@ -112,7 +145,7 @@ export const Dashboard = () => {
       .catch((err) => {});
 
     axiosInstance
-      .get("/user", {
+      .get("/ca-user", {
         params: {
           email: getCaUser.email,
         },
@@ -130,7 +163,7 @@ export const Dashboard = () => {
       .catch((err) => {
         toast.error(err);
       });
-  }, []);
+  }, [otherDetails]);
 
   return (
     <>

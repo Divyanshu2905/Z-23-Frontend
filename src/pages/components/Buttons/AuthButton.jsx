@@ -1,7 +1,8 @@
 import React from "react";
 import { styled } from "styled-components";
+import { Loader } from "../Loader/Loader";
 
-export const AuthButton = ({isGoogle , text, registered, onclick}) => {
+export const AuthButton = ({ isGoogle, text, registered, onclick }) => {
   const googleText = registered ? "SignIn with Google" : "SignUp with Google";
   return (
     <ButtonContainer>
@@ -42,7 +43,7 @@ const ButtonContainer = styled.div`
     align-items: center;
     gap: 4px;
     font-size: max(1vw, 1.6vh);
-    &:disabled{
+    &:disabled {
       background-color: red;
     }
   }

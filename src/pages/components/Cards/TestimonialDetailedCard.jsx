@@ -16,6 +16,7 @@ export const TestimonialDetailedCard = ({ name, college, description }) => {
 };
 const CardContainer = styled.div`
   .name {
+    height: fit-content;
     color: var(--darkestt, #723e30);
     text-align: right;
     text-shadow: 2px 2px 0px rgba(114, 62, 48, 0.2);

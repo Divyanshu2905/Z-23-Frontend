@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { axiosInstance } from "../../../config/config";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Loader } from "../Loader/Loader";
 
 function MainRegisterForm({
   handleRegister,
@@ -12,6 +13,8 @@ function MainRegisterForm({
   setUser,
   handleGoogleRegister,
   initialPage,
+  loading,
+  setLoading,
 }) {
   const star =
     "https://firebasestorage.googleapis.com/v0/b/zeitgeist-23.appspot.com/o/Resources%2FMAIN%2Fresources%2Fstar.png?alt=media&token=3a2c48a1-3f20-4a73-a67f-aac8db4bcbb1";
@@ -79,9 +82,11 @@ function MainRegisterForm({
         });
       } else {
         const { password, cpassword, ...details } = user;
+        setLoading({ ...loading, normal: true });
         axiosInstance
           .post("/main-data", details)
           .then(async (res) => {
+            setLoading({ ...loading, normal: false });
             //Increase the invites of respective CA
             if (user.referral !== "") {
               axiosInstance.get("/leaderboard").then((res) => {
@@ -91,12 +96,23 @@ function MainRegisterForm({
                 axiosInstance.put("/ca-data", {
                   email: referrerCa[0].email,
                   invites: 1,
-                  points: 10,
+                  points: 15,
                 });
               });
             }
           })
-          .catch((err) => console.log(err));
+          .catch((err) =>
+            toast.error("Oops! Please try later", {
+              position: "top-center",
+              autoClose: 800,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              pauseOnFocusLoss: false,
+              draggable: true,
+              theme: "dark",
+            })
+          );
         toast.success("Registered! Please Login", {
           position: "top-center",
           autoClose: 800,
@@ -238,12 +254,16 @@ function MainRegisterForm({
               {FormTitles[page]}
             </div>
             {componentToRender}
-            <AuthButton
-              isGoogle={false}
-              registered={false}
-              text={page === FormTitles.length - 1 ? "SUBMIT" : "NEXT"}
-              onclick={handleNext}
-            />
+            {loading.normal ? (
+              <Loader />
+            ) : (
+              <AuthButton
+                isGoogle={false}
+                registered={false}
+                text={page === FormTitles.length - 1 ? "SUBMIT" : "NEXT"}
+                onclick={handleNext}
+              />
+            )}
             {page !== 0 ? (
               <AuthButton
                 isGoogle={false}
@@ -255,11 +275,15 @@ function MainRegisterForm({
             {page !== 0 ? null : (
               <>
                 <div className="font-[Jost]  text-[#b17f5b] text-[2vh]">OR</div>
-                <AuthButton
-                  isGoogle={true}
-                  registered={false}
-                  onclick={handleGoogleRegister}
-                />
+                {loading.google ? (
+                  <Loader />
+                ) : (
+                  <AuthButton
+                    isGoogle={true}
+                    registered={false}
+                    onclick={handleGoogleRegister}
+                  />
+                )}
               </>
             )}
             {page === 0 ? (

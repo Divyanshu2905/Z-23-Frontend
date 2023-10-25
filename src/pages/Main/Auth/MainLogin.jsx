@@ -19,6 +19,7 @@ export const MainLogin = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const getMainUser = useSelector((state) => state.user).result;
+  const [loading, setLoading] = useState({google: false, normal: false})
 
   const [user, setUser] = useState({
     email: getMainUser.email,
@@ -26,6 +27,8 @@ export const MainLogin = () => {
   });
 
   const handleGoogleLogin = async () => {
+    setLoading({...loading, google: true})
+    setTimeout(()=>{setLoading({ ...loading, google: false });},5000)
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider).then((result) => {
       //Successful login
@@ -34,6 +37,7 @@ export const MainLogin = () => {
           params: { email: result.user.email },
         })
         .then((res) => {
+          setLoading({ ...loading, google: false });
           //Profile completed already
           //Setting in redux
           dispatch({
@@ -55,6 +59,7 @@ export const MainLogin = () => {
           }, 2000);
         })
         .catch((error) => {
+          setLoading({...loading, google:false})
           dispatch({
             type: "GET_USER_ACTION",
             payload: {
@@ -75,10 +80,22 @@ export const MainLogin = () => {
             navigate("../register");
           }, 2000);
         });
+    }).catch((err)=>{
+      // toast.info("Pop-up closed by user", {
+      //   position: "top-center",
+      //   autoClose: 800,
+      //   hideProgressBar: false,
+      //   closeOnClick: true,
+      //   pauseOnHover: true,
+      //   pauseOnFocusLoss: false,
+      //   draggable: true,
+      //   theme: "dark",
+      // });
     });
   };
 
   const handleLogin = async () => {
+    setLoading({...loading, normal: true})
     axiosInstance
       .post("/login", {
         email: user.email,
@@ -96,6 +113,7 @@ export const MainLogin = () => {
           .then(
             //Successful login
             (res) => {
+              setLoading({ ...loading, normal: false });
               //Setting in redux
               dispatch({
                 type: "GET_USER_ACTION",
@@ -117,6 +135,7 @@ export const MainLogin = () => {
             }
           )
           .catch((err) => {
+            setLoading({ ...loading, normal: false });
             //Profile not completed
             dispatch({
               type: "GET_USER_ACTION",
@@ -140,6 +159,7 @@ export const MainLogin = () => {
           });
       })
       .catch((error) => {
+        setLoading({ ...loading, normal: false });
         //Email Not Verified or Invalid credentials
         toast.error(error.response.data, {
           position: "top-center",
@@ -156,6 +176,7 @@ export const MainLogin = () => {
   };
 
   const resetPassword = async () => {
+    setLoading({...loading, normal:true})
     axiosInstance
       .get("/main-user", {
         params: {
@@ -164,6 +185,7 @@ export const MainLogin = () => {
       })
       .then((res) => {
         if (res.data.google) {
+          setLoading({ ...loading, normal: false });
           toast.error("A google account uses this email", {
             position: "top-center",
             autoClose: 800,
@@ -177,6 +199,7 @@ export const MainLogin = () => {
         } else
           sendPasswordResetEmail(auth, res.data.email)
             .then(() => {
+              setLoading({ ...loading, normal: false });
               toast.success("Password reset link sent!", {
                 position: "top-center",
                 autoClose: 800,
@@ -189,6 +212,7 @@ export const MainLogin = () => {
               });
             })
             .catch((error) => {
+              setLoading({ ...loading, normal: false });
               toast.error(error.response.data.code, {
                 position: "top-center",
                 autoClose: 800,
@@ -201,7 +225,8 @@ export const MainLogin = () => {
               });
             });
       })
-      .catch((err) => {
+      .catch((err) => { 
+        setLoading({ ...loading, normal: false });
         toast.error("User does not exist!", {
           position: "top-center",
           autoClose: 800,
@@ -218,7 +243,7 @@ export const MainLogin = () => {
     <LoginContainer>
       <ToastContainer />
       <svg
-        onClick={()=>navigate("/")}
+        onClick={() => navigate("/")}
         xmlns="http://www.w3.org/2000/svg"
         height="1em"
         viewBox="0 0 512 512"
@@ -233,6 +258,7 @@ export const MainLogin = () => {
         handleLogin={handleLogin}
         handleGoogleLogin={handleGoogleLogin}
         resetPassword={resetPassword}
+        loading={loading}
       />
     </LoginContainer>
   );

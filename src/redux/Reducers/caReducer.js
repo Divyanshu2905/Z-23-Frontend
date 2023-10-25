@@ -1,6 +1,6 @@
 const initialState = {
   result: {
-    
+    isVerified:false
   },
 };
 export default function getcaReducer(state = initialState, action) {

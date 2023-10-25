@@ -24,6 +24,7 @@ export const Navbar = () => {
   const signOut = ()=>{
     navigate("/")
     dispatch({type: "GET_USER_ACTION", payload : {}})
+    dispatch({type: "GET_EVENTS_ACTION", payload : []})
   }
 
   return (
@@ -79,14 +80,14 @@ export const Navbar = () => {
           <NavLink to={"/t&c"}>T&C</NavLink>
           <NavLink>
             <TicketButton
-              text={!getMainUser.isVerified ? "SIGN IN" : "SIGN OUT"}
+              text={!getMainUser.isVerified ? "REGISTER" : "LOG OUT"}
               onclick={!getMainUser.isVerified ? signIn : signOut}
             ></TicketButton>
           </NavLink>
         </div>
         <div className="reg-button">
           <TicketButton
-            text={!getMainUser.isVerified ? "SIGN IN" : "SIGN OUT"}
+            text={!getMainUser.isVerified ? "REGISTER" : "LOG OUT"}
             onclick={!getMainUser.isVerified ? signIn : signOut}
           ></TicketButton>
         </div>

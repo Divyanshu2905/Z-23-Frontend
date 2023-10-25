@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Loader } from "../Loader/Loader";
 
 function MainLoginForm({
   handleLogin,
@@ -13,6 +14,7 @@ function MainLoginForm({
   setUser,
   handleGoogleLogin,
   resetPassword,
+  loading,
 }) {
   const star =
     "https://firebasestorage.googleapis.com/v0/b/zeitgeist-23.appspot.com/o/Resources%2FMAIN%2Fresources%2Fstar.png?alt=media&token=3a2c48a1-3f20-4a73-a67f-aac8db4bcbb1";
@@ -96,6 +98,7 @@ function MainLoginForm({
 
             <div className="w-full font-[Jost] hover:text-[#482318] text-[#723e30] text-[2vh] transition-all flex justify-end ">
               <a
+                style={{cursor: "pointer"}}
                 className=""
                 onClick={() => {
                   setPage((prev) => !prev);
@@ -106,20 +109,27 @@ function MainLoginForm({
             </div>
             {!page ? (
               <>
-                <AuthButton
-                  isGoogle={false}
-                  registered={true}
-                  text={"LOGIN"}
-                  onclick={handleClick}
-                />
+                {loading.normal ? (
+                  <Loader />
+                ) : (
+                  <AuthButton
+                    isGoogle={false}
+                    registered={true}
+                    text={"LOGIN"}
+                    onclick={handleClick}
+                  />
+                )}
 
                 <div className="font-[Jost]  text-[#b17f5b] text-[2vh]">OR</div>
-
-                <AuthButton
-                  isGoogle={true}
-                  registered={true}
-                  onclick={handleGoogleLogin}
-                />
+                {loading.google ? (
+                  <Loader />
+                ) : (
+                  <AuthButton
+                    isGoogle={true}
+                    registered={true}
+                    onclick={handleGoogleLogin}
+                  />
+                )}
 
                 <div className="font-[Jost] text-[1.6vh] lg:text-md">
                   <span className="text-[#a3724f]">Don't have an account?</span>
@@ -137,6 +147,8 @@ function MainLoginForm({
                   </a>
                 </div>
               </>
+            ) : loading.normal ? (
+              <Loader />
             ) : (
               <AuthButton
                 isGoogle={false}

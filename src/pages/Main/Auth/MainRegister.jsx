@@ -17,6 +17,7 @@ export const MainRegister = () => {
   const navigate = useNavigate();
   //Check if completing the profile for the first time or fresh start
   const [initialPage, setInitialPage] = useState(0);
+  const [loading, setLoading] = useState({ google: false, normal: false });
   const [user, setUser] = useState({
     email: getMainUser.email,
     password: "",
@@ -30,12 +31,14 @@ export const MainRegister = () => {
   });
 
   const handleRegister = async () => {
+    setLoading({ ...loading, normal: true });
     axiosInstance
       .post("/register", {
         email: user.email,
         password: user.password,
       })
       .then((res) => {
+        setLoading({ ...loading, normal: false });
         toast.info("Verification Email Sent!", {
           position: "top-center",
           autoClose: 1000,
@@ -57,6 +60,7 @@ export const MainRegister = () => {
               params: { email: user.email },
             })
             .then((res) => {
+              setLoading({ ...loading, normal: false });
               toast.info("Already registered", {
                 position: "top-center",
                 autoClose: 800,
@@ -70,6 +74,7 @@ export const MainRegister = () => {
               setUser({ ...user, email: "", password: "", cpassword: "" });
             })
             .catch((err) => {
+              setLoading({ ...loading, normal: false });
               toast.info("Complete your profile", {
                 position: "top-center",
                 autoClose: 800,
@@ -85,6 +90,7 @@ export const MainRegister = () => {
               }, 1000);
             });
         } else if (err.response.data.code === "auth/invalid-email") {
+          setLoading({ ...loading, normal: false });
           toast.error("Invalid Email address", {
             position: "top-center",
             autoClose: 800,
@@ -97,6 +103,7 @@ export const MainRegister = () => {
           });
           setUser({ ...user, email: "", password: "", cpassword: "" });
         } else if (err.response.data.code === "auth/weak-password") {
+          setLoading({ ...loading, normal: false });
           toast.info("Choose a strong password", {
             position: "top-center",
             autoClose: 800,
@@ -113,6 +120,11 @@ export const MainRegister = () => {
   };
 
   const handleGoogleRegister = async () => {
+    setLoading({ ...loading, google: true });
+    //Disable loader after 5 seconds of popup appearance
+    setTimeout(() => {
+      setLoading({ ...loading, google: false });
+    }, 5000);
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
       .then((result) => {
@@ -121,6 +133,7 @@ export const MainRegister = () => {
             params: { email: result.user.email },
           })
           .then((res) => {
+            setLoading({ ...loading, google: false });
             toast.info("Email already in use.", {
               position: "top-center",
               autoClose: 800,
@@ -133,6 +146,7 @@ export const MainRegister = () => {
             });
           })
           .catch((err) => {
+            setLoading({ ...loading, google: false });
             toast.info("Please fill in the details.", {
               position: "top-center",
               autoClose: 800,
@@ -147,7 +161,18 @@ export const MainRegister = () => {
             setInitialPage(1);
           });
       })
-      .catch((error) => {});
+      .catch((error) => {
+        // toast.error("Pop-up closed by user!", {
+        //   position: "top-center",
+        //   autoClose: 800,
+        //   hideProgressBar: false,
+        //   closeOnClick: true,
+        //   pauseOnHover: true,
+        //   pauseOnFocusLoss: false,
+        //   draggable: true,
+        //   theme: "dark",
+        // });
+      });
   };
 
   return (
@@ -169,6 +194,8 @@ export const MainRegister = () => {
         setUser={setUser}
         handleRegister={handleRegister}
         handleGoogleRegister={handleGoogleRegister}
+        loading={loading}
+        setLoading={setLoading}
       />
     </RegisterContainer>
   );

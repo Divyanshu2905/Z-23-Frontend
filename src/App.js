@@ -12,6 +12,7 @@ import { CaLogin } from "./pages/CA/Auth/CaLogin";
 import { Events } from "./pages/Main/Event/Events";
 import { MainRegister } from "./pages/Main/Auth/MainRegister";
 import { MainLogin } from "./pages/Main/Auth/MainLogin";
+// import {Schedule} from "./pages/Main/Schedule/Schedule";
 
 function App() {
   const getCaUser = useSelector((state) => state.ca).result;
@@ -22,9 +23,10 @@ function App() {
         <Routes>
           <Route path="/" index element={<Landing />} />
           <>
-            {/* <Route path="home" index element={<Home />} /> */}
-            {/* <Route path="faq" index element={<Faq />} /> */}
-            {/* <Route path="tnc" index element={<TnC />} /> */}
+            {/* <Route path="home" element={<Home />} /> */}
+            {/* <Route path="faq" element={<Faq />} /> */}
+            {/* <Route path="tnc" element={<TnC />} /> */}
+            {/* <Route path="schedule" element={<Schedule />} /> */}
             <Route path="login" element={<MainLogin />} />
             <Route path="register" element={<MainRegister />} />
             <Route
@@ -33,12 +35,7 @@ function App() {
                 <ProtectedRoute
                   Component={Events}
                   redirectUrl={"/login"}
-                  isLoggedIn={
-                    Object.keys(getMainUser).length === 0 ||
-                    Object.keys(getMainUser).length === 1
-                      ? false
-                      : true
-                  }
+                  isLoggedIn={getMainUser.isVerified}
                 />
               }
             />
@@ -52,12 +49,7 @@ function App() {
                 <ProtectedRoute
                   Component={Dashboard}
                   redirectUrl={"/campus-ambassador/login"}
-                  isLoggedIn={
-                    Object.keys(getCaUser).length === 0 ||
-                    Object.keys(getCaUser).length === 1
-                      ? false
-                      : true
-                  }
+                  isLoggedIn={getCaUser.isVerified}
                 />
               }
             />

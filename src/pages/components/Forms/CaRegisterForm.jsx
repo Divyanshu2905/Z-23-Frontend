@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { axiosInstance } from "../../../config/config";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Loader } from "../Loader/Loader";
 
 function CaRegisterForm({
   handleRegister,
@@ -12,6 +13,8 @@ function CaRegisterForm({
   setUser,
   handleGoogleRegister,
   initialPage,
+  loading,
+  setLoading,
 }) {
   const star =
     "https://firebasestorage.googleapis.com/v0/b/zeitgeist-23.appspot.com/o/Resources%2FMAIN%2Fresources%2Fstar.png?alt=media&token=3a2c48a1-3f20-4a73-a67f-aac8db4bcbb1";
@@ -120,10 +123,11 @@ function CaRegisterForm({
         });
       } else {
         const { password, cpassword, ...details } = user;
+        setLoading({ ...loading, normal: true });
         axiosInstance
           .post("/ca-data", details)
-          .then((res) => console.log(res))
-          .catch((err) => console.log(err));
+          .then((res) => setLoading({ ...loading, normal: false }))
+          .catch((err) => setLoading({ ...loading, normal: false }));
         toast.success("Registered! Please Login", {
           position: "top-center",
           autoClose: 800,
@@ -288,12 +292,16 @@ function CaRegisterForm({
               {FormTitles[page]}
             </div>
             {componentToRender}
-            <AuthButton
-              isGoogle={false}
-              registered={false}
-              text={page === FormTitles.length - 1 ? "SUBMIT" : "NEXT"}
-              onclick={handleNext}
-            />
+            {loading.normal ? (
+              <Loader />
+            ) : (
+              <AuthButton
+                isGoogle={false}
+                registered={false}
+                text={page === FormTitles.length - 1 ? "SUBMIT" : "NEXT"}
+                onclick={handleNext}
+              />
+            )}
             {page !== 0 ? (
               <AuthButton
                 isGoogle={false}
@@ -304,14 +312,16 @@ function CaRegisterForm({
             ) : null}
             {page !== 0 ? null : (
               <>
-                <div className="font-[Jost]  text-[#b17f5b] text-[2vh]">
-                  OR
-                </div>
-                <AuthButton
-                  isGoogle={true}
-                  registered={false}
-                  onclick={handleGoogleRegister}
-                />
+                <div className="font-[Jost]  text-[#b17f5b] text-[2vh]">OR</div>
+                {loading.google ? (
+                  <Loader />
+                ) : (
+                  <AuthButton
+                    isGoogle={true}
+                    registered={false}
+                    onclick={handleGoogleRegister}
+                  />
+                )}
               </>
             )}
             {page === 0 ? (

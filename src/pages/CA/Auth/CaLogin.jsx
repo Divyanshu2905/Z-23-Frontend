@@ -20,12 +20,14 @@ export const CaLogin = () => {
   const navigate = useNavigate();
   const getCaUser = useSelector((state) => state.ca).result;
 
+  const [loading, setLoading] = useState({ google: false, normal: false });
   const [user, setUser] = useState({
     email: getCaUser.email,
     password: "",
   });
 
   const handleGoogleLogin = async () => {
+    setLoading({ ...loading, google: true });
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider).then((result) => {
       //Successful login
@@ -44,6 +46,7 @@ export const CaLogin = () => {
           axiosInstance
             .get("/leaderboard")
             .then((res) => {
+              setLoading({ ...loading, google: false });
               //Setting in redux
               dispatch({
                 type: "GET_LEADERBOARD_ACTION",
@@ -65,10 +68,12 @@ export const CaLogin = () => {
               }, 2000);
             })
             .catch((err) => {
+              setLoading({ ...loading, google: false });
               console.log(err);
             });
         })
         .catch((error) => {
+          setLoading({ ...loading, google: false });
           dispatch({
             type: "GET_CA_ACTION",
             payload: {
@@ -89,9 +94,12 @@ export const CaLogin = () => {
             navigate("../register");
           }, 2000);
         });
+    }).catch((err)=>{
+      //Popup closed by user
     });
   };
   const handleLogin = async () => {
+    setLoading({ ...loading, normal: true });
     axiosInstance
       .post("/login", {
         email: user.email,
@@ -116,10 +124,11 @@ export const CaLogin = () => {
               });
               //Fetching leaderboard
               axiosInstance
-                .get("/leaderboard")
-                .then((res) => {
-                  //Setting in redux
-                  dispatch({
+              .get("/leaderboard")
+              .then((res) => {
+                //Setting in redux
+                setLoading({ ...loading, normal: false });
+                dispatch({
                     type: "GET_LEADERBOARD_ACTION",
                     payload: res.data,
                   });
@@ -138,11 +147,12 @@ export const CaLogin = () => {
                     navigate("../dashboard");
                   }, 2000);
                 })
-                .catch((err) => console.log(err));
+                .catch((err) => setLoading({ ...loading, normal: false }));
             }
           )
           .catch((err) => {
             //Profile not completed
+            setLoading({ ...loading, normal: false });
             dispatch({
               type: "GET_CA_ACTION",
               payload: {
@@ -165,6 +175,7 @@ export const CaLogin = () => {
           });
       })
       .catch((error) => {
+        setLoading({ ...loading, normal: false });
         //Email Not Verified or Invalid credentials
         toast.error(error.response.data, {
           position: "top-center",
@@ -180,6 +191,7 @@ export const CaLogin = () => {
       });
   };
   const resetPassword = async () => {
+    setLoading({ ...loading, normal: true });
     axiosInstance
       .get("/ca-user", {
         params: {
@@ -188,6 +200,7 @@ export const CaLogin = () => {
       })
       .then((res) => {
         if (res.data.google) {
+          setLoading({ ...loading, normal: false });
           toast.error("A google account uses this email", {
             position: "top-center",
             autoClose: 800,
@@ -201,6 +214,7 @@ export const CaLogin = () => {
         } else
           sendPasswordResetEmail(auth, res.data.email)
             .then(() => {
+              setLoading({ ...loading, normal: false });
               toast.success("Password reset link sent!", {
                 position: "top-center",
                 autoClose: 800,
@@ -213,6 +227,7 @@ export const CaLogin = () => {
               });
             })
             .catch((error) => {
+              setLoading({ ...loading, normal: false });
               toast.error(error.response.data.code, {
                 position: "top-center",
                 autoClose: 800,
@@ -226,6 +241,7 @@ export const CaLogin = () => {
             });
       })
       .catch((err) => {
+        setLoading({ ...loading, normal: false });
         toast.error("User does not exist!", {
           position: "top-center",
           autoClose: 800,
@@ -248,6 +264,7 @@ export const CaLogin = () => {
         handleLogin={handleLogin}
         handleGoogleLogin={handleGoogleLogin}
         resetPassword={resetPassword}
+        loading={loading}
       />
     </LoginContainer>
   );

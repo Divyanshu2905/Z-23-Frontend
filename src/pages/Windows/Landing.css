@@ -161,10 +161,10 @@
   opacity: 0;
   z-index: 2;
   pointer-events: none;
-  animation: flicker 0.15s infinite;
+  animation: flickering 0.15s infinite;
 }
 
-@keyframes flicker {
+@keyframes flickering {
   0% {
     opacity: 0.27861;
   }

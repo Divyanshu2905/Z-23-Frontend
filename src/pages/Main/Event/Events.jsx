@@ -6,29 +6,34 @@ import { EventCard } from "../../components/Cards/EventCard";
 import { findClosestMatch } from "../../../utils/searchFunctionality";
 import { useDispatch, useSelector } from "react-redux";
 import { axiosInstance } from "../../../config/config";
-
+import { Loader } from "../../components/Loader/Loader";
 
 export const Events = () => {
   const [category, setCategory] = useState("all");
-  const [filteredEvents, setFilteredEvents] = useState([]);
   const [inputValue, setValue] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const events = useSelector((state) => state.events).result;
+  const [filteredEvents, setFilteredEvents] = useState([]);
   const dispatch = useDispatch();
 
   const handleInputChange = (e) => {
     setValue(e.target.value);
   };
 
+  //Fetching events
   useEffect(() => {
+    setLoading(true);
     axiosInstance
       .get("/allEvents")
-      .then((response) => {
+      .then(async (response) => {
         dispatch({ type: "GET_EVENTS_ACTION", payload: response.data });
+        setLoading(false)
       })
       .catch((err) => console.log(err));
   }, []);
 
+  //Achieve that arrow navigation design
   useEffect(() => {
     const arr = Array.from(document.querySelector(".categories").childNodes);
     arr.forEach((element, index) => {
@@ -36,11 +41,13 @@ export const Events = () => {
     });
   }, []);
 
+  //Searching
   useEffect(() => {
     setFilteredEvents(findClosestMatch(events, category));
-  }, [category]);
+    setValue("");
+  }, [category, loading]);
   useEffect(() => {
-    setFilteredEvents(findClosestMatch(events, inputValue));
+    setFilteredEvents(findClosestMatch(filteredEvents, inputValue));
   }, [inputValue]);
 
   return (
@@ -112,9 +119,15 @@ export const Events = () => {
           </div>
         </div>
         <div className="events-list">
-          {filteredEvents.map((event) => (
-            <EventCard key={event.name} event={event}></EventCard>
-          ))}
+          {loading ? (
+            <div className="loader-container">
+              <Loader />
+            </div>
+          ) : (
+            filteredEvents.map((event) => (
+              <EventCard key={event.name} event={event}></EventCard>
+            ))
+          )}
         </div>
       </div>
     </EventContainer>
@@ -310,6 +323,13 @@ const EventContainer = styled.div`
       justify-content: space-evenly;
       gap: 40px;
       padding-right: 10px;
+      .loader-container{
+        width: 100%;
+        height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
     }
   }
   @keyframes flicker {
