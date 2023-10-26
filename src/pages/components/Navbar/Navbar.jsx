@@ -64,7 +64,7 @@ export const Navbar = () => {
         </div>
         <NavLink to={"/home"} className="home-button">
           <img
-            src="https://firebasestorage.googleapis.com/v0/b/zeitgeist-23.appspot.com/o/Resources%2FMAIN%2Fresources%2Flogo.svg?alt=media&token=837d76d6-62c0-4625-a321-e328e172077e"
+            src="https://firebasestorage.googleapis.com/v0/b/zeitgeist-23.appspot.com/o/Resources%2FMAIN%2Fresources%2FNavLogoBg.svg?alt=media&token=bc9cd52b-3d44-4f86-8f15-95fccdc5a20a"
             alt=""
             className="logo-bg"
           />
@@ -101,7 +101,7 @@ const NavbarContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 6vmin 1vw;
+  padding: 5vmin 1vw;
   z-index: 10;
   .background {
     visibility: hidden;
@@ -170,7 +170,7 @@ const NavbarContainer = styled.div`
     }
     background-image: url("https://firebasestorage.googleapis.com/v0/b/zeitgeist-23.appspot.com/o/Resources%2FMAIN%2Fresources%2FNavBg.svg?alt=media&token=a986d55d-03d8-4ecb-ae35-b3e1de4a27ec");
     position: relative;
-    width: 100%;
+    width: 95%;
     aspect-ratio: 28.4/1;
     background-size: contain;
     background-position: center;
@@ -194,7 +194,7 @@ const NavbarContainer = styled.div`
       justify-content: space-evenly;
       align-items: center;
 
-      font-size: clamp(12px, 1.5vmax, 24px);
+      font-size: clamp(12px, 1.5vmax, 22px);
       color: var(--lightest, #f8f2d8);
       font-family: "Jost";
       font-weight: 500;
@@ -250,7 +250,7 @@ const NavbarContainer = styled.div`
       left: 50%;
       translate: -50%;
       .logo-bg {
-        width: 14vw;
+        width: 12vw;
         @media screen and (max-width: 725px) {
           width: 25vw;
         }

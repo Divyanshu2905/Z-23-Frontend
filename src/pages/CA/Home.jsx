@@ -12,7 +12,7 @@ import Footer from "./sections/Footer/Footer";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-export const Home = () => {
+export const CaHome = () => {
   const dispatch = useDispatch();
   const getCaUser = useSelector((state) => state.ca).result;
   const [outlet, setOutlet] = useState("");

@@ -6,7 +6,8 @@ import ProtectedRoute from "./utils/protectedRoute";
 
 import { Dashboard } from "./pages/CA/Dashboard/Dashboard";
 import Landing from "./pages/Windows/Landing";
-import { Home as CaHome } from "./pages/CA/Home";
+import { CaHome } from "./pages/CA/Home";
+import { Home } from "./pages/Main/Home/Home"
 import { CaRegister } from "./pages/CA/Auth/CaRegister";
 import { CaLogin } from "./pages/CA/Auth/CaLogin";
 import { Events } from "./pages/Main/Event/Events";
@@ -23,7 +24,7 @@ function App() {
         <Routes>
           <Route path="/" index element={<Landing />} />
           <>
-            {/* <Route path="home" element={<Home />} /> */}
+            <Route path="home" element={<Home />} />
             {/* <Route path="faq" element={<Faq />} /> */}
             {/* <Route path="tnc" element={<TnC />} /> */}
             {/* <Route path="schedule" element={<Schedule />} /> */}
