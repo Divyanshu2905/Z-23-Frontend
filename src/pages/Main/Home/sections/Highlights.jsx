@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import styled from "styled-components";
 
 function Highlights() {
-  return (
-    <div>Highlights</div>
-  )
+  return <HighlightsContainer>
+    
+  </HighlightsContainer>;
 }
-
-export default Highlights
+const HighlightsContainer = styled.div`
+  width: 100%;
+`;
+export default Highlights;

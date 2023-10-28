@@ -37,7 +37,7 @@ export const CaRegister = () => {
   });
 
   const handleRegister = async () => {
-    setLoading({...loading, normal: true});
+    setLoading({ ...loading, normal: true });
     axiosInstance
       .post("/register", {
         email: user.email,
@@ -62,7 +62,7 @@ export const CaRegister = () => {
       .catch((err) => {
         if (err.response.data.code === "auth/email-already-in-use") {
           axiosInstance
-            .get("/user", {
+            .get("/ca-user", {
               params: { email: user.email },
             })
             .then((res) => {
@@ -127,12 +127,14 @@ export const CaRegister = () => {
 
   const handleGoogleRegister = async () => {
     setLoading({ ...loading, google: true });
-    setTimeout(()=>{setLoading({ ...loading, google: false })},5000)
+    setTimeout(() => {
+      setLoading({ ...loading, google: false });
+    }, 5000);
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
       .then((result) => {
         axiosInstance
-          .get("/user", {
+          .get("/ca-user", {
             params: { email: result.user.email },
           })
           .then((res) => {

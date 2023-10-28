@@ -19,7 +19,7 @@ export const MainLogin = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const getMainUser = useSelector((state) => state.user).result;
-  const [loading, setLoading] = useState({google: false, normal: false})
+  const [loading, setLoading] = useState({ google: false, normal: false });
 
   const [user, setUser] = useState({
     email: getMainUser.email,
@@ -27,75 +27,79 @@ export const MainLogin = () => {
   });
 
   const handleGoogleLogin = async () => {
-    setLoading({...loading, google: true})
-    setTimeout(()=>{setLoading({ ...loading, google: false });},5000)
+    setLoading({ ...loading, google: true });
+    setTimeout(() => {
+      setLoading({ ...loading, google: false });
+    }, 5000);
     const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider).then((result) => {
-      //Successful login
-      axiosInstance
-        .get("/main-user", {
-          params: { email: result.user.email },
-        })
-        .then((res) => {
-          setLoading({ ...loading, google: false });
-          //Profile completed already
-          //Setting in redux
-          dispatch({
-            type: "GET_USER_ACTION",
-            payload: { ...res.data, isVerified: true },
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        //Successful login
+        axiosInstance
+          .get("/main-user", {
+            params: { email: result.user.email },
+          })
+          .then((res) => {
+            setLoading({ ...loading, google: false });
+            //Profile completed already
+            //Setting in redux
+            dispatch({
+              type: "GET_USER_ACTION",
+              payload: { ...res.data, isVerified: true },
+            });
+            toast.success("Success", {
+              position: "top-center",
+              autoClose: 500,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              pauseOnFocusLoss: false,
+              draggable: true,
+              theme: "dark",
+            });
+            setTimeout(() => {
+              navigate("../home");
+            }, 2000);
+          })
+          .catch((error) => {
+            setLoading({ ...loading, google: false });
+            dispatch({
+              type: "GET_USER_ACTION",
+              payload: {
+                email: error.response.data.email,
+              },
+            });
+            toast.error("Please complete Registration!", {
+              position: "top-center",
+              autoClose: 800,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              pauseOnFocusLoss: false,
+              draggable: true,
+              theme: "dark",
+            });
+            setTimeout(() => {
+              navigate("../register");
+            }, 2000);
           });
-          toast.success("Success", {
-            position: "top-center",
-            autoClose: 500,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            pauseOnFocusLoss: false,
-            draggable: true,
-            theme: "dark",
-          });
-          setTimeout(() => {
-            navigate("../home");
-          }, 2000);
-        })
-        .catch((error) => {
-          setLoading({...loading, google:false})
-          dispatch({
-            type: "GET_USER_ACTION",
-            payload: {
-              email: error.response.data.email,
-            },
-          });
-          toast.error("Please complete Registration!", {
-            position: "top-center",
-            autoClose: 800,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            pauseOnFocusLoss: false,
-            draggable: true,
-            theme: "dark",
-          });
-          setTimeout(() => {
-            navigate("../register");
-          }, 2000);
-        });
-    }).catch((err)=>{
-      // toast.info("Pop-up closed by user", {
-      //   position: "top-center",
-      //   autoClose: 800,
-      //   hideProgressBar: false,
-      //   closeOnClick: true,
-      //   pauseOnHover: true,
-      //   pauseOnFocusLoss: false,
-      //   draggable: true,
-      //   theme: "dark",
-      // });
-    });
+      })
+      .catch((err) => {
+        // toast.info("Pop-up closed by user", {
+        //   position: "top-center",
+        //   autoClose: 800,
+        //   hideProgressBar: false,
+        //   closeOnClick: true,
+        //   pauseOnHover: true,
+        //   pauseOnFocusLoss: false,
+        //   draggable: true,
+        //   theme: "dark",
+        // });
+      });
   };
 
   const handleLogin = async () => {
-    setLoading({...loading, normal: true})
+    setLoading({ ...loading, normal: true });
     axiosInstance
       .post("/login", {
         email: user.email,
@@ -176,7 +180,7 @@ export const MainLogin = () => {
   };
 
   const resetPassword = async () => {
-    setLoading({...loading, normal:true})
+    setLoading({ ...loading, normal: true });
     axiosInstance
       .get("/main-user", {
         params: {
@@ -225,7 +229,7 @@ export const MainLogin = () => {
               });
             });
       })
-      .catch((err) => { 
+      .catch((err) => {
         setLoading({ ...loading, normal: false });
         toast.error("User does not exist!", {
           position: "top-center",

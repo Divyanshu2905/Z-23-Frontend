@@ -1,4 +1,5 @@
 import "./App.css";
+import React from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -19,7 +20,6 @@ function App() {
   const getCaUser = useSelector((state) => state.ca).result;
   const getMainUser = useSelector((state) => state.user).result;
   return (
-    <>
       <>
         <Routes>
           <Route path="/" index element={<Landing />} />
@@ -58,7 +58,6 @@ function App() {
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </>
-    </>
   );
 }
 

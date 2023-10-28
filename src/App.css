@@ -27,7 +27,3 @@
   border-radius: 10px;
   background: var(--light1, #e6d6b55d);
 }
-
-#root {
-  overflow-x: hidden;
-}

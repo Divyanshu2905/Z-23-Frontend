@@ -4,11 +4,24 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { TicketButton } from "../Buttons/TicketButton";
 import { useDispatch, useSelector } from "react-redux";
 
+import closeIcon from "./close.svg";
+import openIcon from "./open.svg";
+import navLogoBg from "./NavLogoBg.svg"
+
 export const Navbar = () => {
   const [hamburger, setHamburger] = useState(false);
-  const getMainUser = useSelector((state)=> state.user).result
+  const getMainUser = useSelector((state) => state.user).result;
   const navigate = useNavigate();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+
+  //Disable scrolling when menu is open
+  useEffect(()=>{
+    if (hamburger) {
+      document.documentElement.style.overflow = "hidden";
+    } else {
+      document.documentElement.style.overflow = "visible";
+    }
+  },[hamburger])
 
   useEffect(() => {
     window.addEventListener("resize", () => {
@@ -18,14 +31,14 @@ export const Navbar = () => {
     });
   }, []);
 
-  const signIn = ()=>{
-    navigate("/register")
-  }
-  const signOut = ()=>{
-    navigate("/")
-    dispatch({type: "GET_USER_ACTION", payload : {}})
-    dispatch({type: "GET_EVENTS_ACTION", payload : []})
-  }
+  const signIn = () => {
+    navigate("/register");
+  };
+  const signOut = () => {
+    navigate("/");
+    dispatch({ type: "GET_USER_ACTION", payload: {} });
+    dispatch({ type: "GET_EVENTS_ACTION", payload: [] });
+  };
 
   return (
     <NavbarContainer>
@@ -42,19 +55,13 @@ export const Navbar = () => {
         <div
           className="hamburger"
           onClick={() => {
-            setHamburger(!hamburger);
+            setHamburger((prev) => !prev);
           }}
         >
           {hamburger ? (
-            <img
-              src="https://firebasestorage.googleapis.com/v0/b/zeitgeist-23.appspot.com/o/Resources%2FMAIN%2Fresources%2Fclose.svg?alt=media&token=12e20f8e-6e7c-4782-bc06-dc63c0f022a6"
-              alt=""
-            />
+            <img src={closeIcon} alt="" />
           ) : (
-            <img
-              src="https://firebasestorage.googleapis.com/v0/b/zeitgeist-23.appspot.com/o/Resources%2FMAIN%2Fresources%2Fopen.svg?alt=media&token=ff3fc1c5-bac9-4c78-8c5b-68045b956b01"
-              alt=""
-            />
+            <img src={openIcon} alt="" />
           )}
         </div>
         <div className="left-nav">
@@ -63,11 +70,7 @@ export const Navbar = () => {
           <NavLink to={"/schedule"}>Schedule</NavLink>
         </div>
         <NavLink to={"/home"} className="home-button">
-          <img
-            src="https://firebasestorage.googleapis.com/v0/b/zeitgeist-23.appspot.com/o/Resources%2FMAIN%2Fresources%2FNavLogoBg.svg?alt=media&token=bc9cd52b-3d44-4f86-8f15-95fccdc5a20a"
-            alt=""
-            className="logo-bg"
-          />
+          <img src={navLogoBg} alt="" className="logo-bg" />
           <img
             src="https://firebasestorage.googleapis.com/v0/b/zeitgeist-23.appspot.com/o/Resources%2FCA%2Fresources%2FLogo%20Ornate.svg?alt=media&token=17255890-cbdc-42c3-b3a2-a5a691e838fe"
             alt=""
@@ -78,7 +81,7 @@ export const Navbar = () => {
           <NavLink to={"/team"}>Team</NavLink>
           <NavLink to={"/faq"}>FAQs</NavLink>
           <NavLink to={"/t&c"}>T&C</NavLink>
-          <NavLink>
+          <NavLink to={!getMainUser.isVerified ? "/register" : "/home"}>
             <TicketButton
               text={!getMainUser.isVerified ? "REGISTER" : "LOG OUT"}
               onclick={!getMainUser.isVerified ? signIn : signOut}
@@ -101,7 +104,7 @@ const NavbarContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 5vmin 1vw;
+  padding: 5vmin 0vw;
   z-index: 10;
   .background {
     visibility: hidden;
@@ -115,6 +118,7 @@ const NavbarContainer = styled.div`
     height: 0;
     transition: all 0.3s ease-out;
     &.visible {
+      z-index: 2;
       visibility: visible;
       height: 100vh;
       background: #d1b8a7;
@@ -144,7 +148,7 @@ const NavbarContainer = styled.div`
     }
   }
   .nav-bar {
-    z-index: 1;
+    z-index: 2;
     .hamburger {
       display: none;
       > img {
@@ -170,7 +174,7 @@ const NavbarContainer = styled.div`
     }
     background-image: url("https://firebasestorage.googleapis.com/v0/b/zeitgeist-23.appspot.com/o/Resources%2FMAIN%2Fresources%2FNavBg.svg?alt=media&token=a986d55d-03d8-4ecb-ae35-b3e1de4a27ec");
     position: relative;
-    width: 95%;
+    width: 90%;
     aspect-ratio: 28.4/1;
     background-size: contain;
     background-position: center;
@@ -184,7 +188,7 @@ const NavbarContainer = styled.div`
       background-image: url("https://firebasestorage.googleapis.com/v0/b/zeitgeist-23.appspot.com/o/Resources%2FMAIN%2Fresources%2FSmallNavBg.svg?alt=media&token=642aae21-0950-4b4b-b981-3779a8a4625c");
       aspect-ratio: 9.3/1;
       justify-content: space-between;
-      padding-inline: 10vw;
+      padding-inline: 5vw;
     }
 
     .left-nav,
@@ -241,7 +245,7 @@ const NavbarContainer = styled.div`
         font-weight: 600;
         color: #723e30;
         @media screen and (max-width: 725px) {
-          font-size: min(14px, 1.6vmax);
+          font-size: min(14px, 1.4vmax);
         }
       }
     }
@@ -250,7 +254,7 @@ const NavbarContainer = styled.div`
       left: 50%;
       translate: -50%;
       .logo-bg {
-        width: 12vw;
+        width: 10vw;
         @media screen and (max-width: 725px) {
           width: 25vw;
         }

@@ -4,16 +4,22 @@ import About from "./sections/About";
 import Footer from "./sections/Footer";
 import { Navbar } from "../../components/Navbar/Navbar";
 import Landing from "./sections/Landing";
+import styled from "styled-components";
 
 export const Home = ()=> {
   return (
-    <>
-      {/* <Navbar></Navbar> */}
+    <HomeContainer>
+      <Navbar />
       <Landing />
-      {/* <Announcement />
+      <Announcement />
       <Highlights />
       <About />
-      <Footer /> */}
-    </>
+      <Footer />
+    </HomeContainer>
   );
 }
+const HomeContainer = styled.div`
+  >div:first-child{
+    position: absolute;
+  }
+`
