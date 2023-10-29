@@ -14,7 +14,7 @@ import { CaLogin } from "./pages/CA/Auth/CaLogin";
 import { Events } from "./pages/Main/Event/Events";
 import { MainRegister } from "./pages/Main/Auth/MainRegister";
 import { MainLogin } from "./pages/Main/Auth/MainLogin";
-// import {Schedule} from "./pages/Main/Schedule/Schedule";
+// import { Faq } from "./pages/Main/Faq/Faq"
 
 function App() {
   const getCaUser = useSelector((state) => state.ca).result;

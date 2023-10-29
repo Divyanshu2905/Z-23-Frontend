@@ -2,3 +2,5 @@ node_modules
 build
 
 .gitignore
+
+src/pages/Main/resources

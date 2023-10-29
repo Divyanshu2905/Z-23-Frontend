@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Navbar } from "../../../components/Navbar/Navbar";
 import { motion } from "framer-motion";
 
 import track from "../../resources/train-track.svg";
+import { ToastContainer, toast } from "react-toastify";
 
 function Landing() {
   const [scrollY, setScrollY] = useState(0);
@@ -26,7 +26,6 @@ function Landing() {
   }, [scrollY]);
   return (
     <LandingContainer className="main-landing">
-      {/* <Navbar /> */}
       <div className="center-logo">
         <motion.img
           src="https://firebasestorage.googleapis.com/v0/b/zeitgeist-23.appspot.com/o/Resources%2FMAIN%2Fresources%2Flogo.svg?alt=media&token=a8e0f23e-9c7d-4bd8-a2c6-040a3ddeed03"
@@ -36,7 +35,18 @@ function Landing() {
           transition={{ delay: 1 }}
         />
       </div>
-      <div className="buy-tickets-container">
+      <div className="buy-tickets-container" onClick={()=>{
+        toast.info("Coming Soon!", {
+          position: "top-center",
+          autoClose: 800,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          pauseOnFocusLoss: false,
+          draggable: true,
+          theme: "dark",
+        });
+      }}>
         <motion.div
           className="buy-tickets"
           initial={{ rotate: -6, y: 50, opacity: 0 }}
@@ -101,6 +111,7 @@ function Landing() {
           alt=""
         />
       </div>
+      <ToastContainer></ToastContainer>
     </LandingContainer>
   );
 }
@@ -214,7 +225,7 @@ const LandingContainer = styled.main`
       background-repeat: no-repeat;
       transform-origin: center top;
       .wooden-board {
-        cursor: not-allowed;
+        cursor: pointer;
         width: 60%;
         aspect-ratio: 1.2/1;
       }
@@ -241,6 +252,7 @@ const LandingContainer = styled.main`
     flex-direction: column;
     flex: 1;
     max-height: 300px;
+    overflow: hidden;
     @media screen and (max-width: 768px) {
       max-height: 200px;
     }

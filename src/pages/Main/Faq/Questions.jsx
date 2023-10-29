@@ -7,9 +7,9 @@ export default function Questions(props) {
     setIsExpanded(!isExpanded);
   };
   return (
-    <QuestionsContainer className="question-container">
-      <div className="c3" onClick={toggleDropdown}>
-        <div className="c2">
+    <QuestionsContainer className="question-container-faq">
+      <div className="c3-faq" onClick={toggleDropdown}>
+        <div className="c2-faq">
           <svg
             width="16"
             height="16"
@@ -25,7 +25,7 @@ export default function Questions(props) {
             />
           </svg>
 
-          <h2 className="typ">{props.ques}</h2>
+          <h2 className="typ-faq">{props.ques}</h2>
         </div>
         <div>
           {!isExpanded && (
@@ -78,9 +78,9 @@ export default function Questions(props) {
       </div>
 
       {isExpanded && (
-        <div className="dropdown-content">
+        <div className="dropdown-content-faq">
           {/* Additional content goes here */}
-          <p className="ans">{props.ans}</p>
+          <p className="ans-faq">{props.ans}</p>
         </div>
       )}
     </QuestionsContainer>

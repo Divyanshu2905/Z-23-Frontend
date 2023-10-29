@@ -62,26 +62,42 @@ export const MainLogin = () => {
             }, 2000);
           })
           .catch((error) => {
-            setLoading({ ...loading, google: false });
-            dispatch({
-              type: "GET_USER_ACTION",
-              payload: {
-                email: error.response.data.email,
-              },
-            });
-            toast.error("Please complete Registration!", {
-              position: "top-center",
-              autoClose: 800,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              pauseOnFocusLoss: false,
-              draggable: true,
-              theme: "dark",
-            });
-            setTimeout(() => {
-              navigate("../register");
-            }, 2000);
+            if (error.response.status === 500) {
+              setLoading({ ...loading, google: false });
+              toast.error("Server error! Try again later", {
+                position: "top-center",
+                autoClose: 800,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                pauseOnFocusLoss: false,
+                draggable: true,
+                theme: "dark",
+              });
+            } else {
+              setLoading({ ...loading, google: false });
+              if (!error.response.data.error) {
+                dispatch({
+                  type: "GET_USER_ACTION",
+                  payload: {
+                    email: error.response.data.email,
+                  },
+                });
+                toast.error("Please complete Registration!", {
+                  position: "top-center",
+                  autoClose: 800,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  pauseOnFocusLoss: false,
+                  draggable: true,
+                  theme: "dark",
+                });
+                setTimeout(() => {
+                  navigate("../register");
+                }, 2000);
+              }
+            }
           });
       })
       .catch((err) => {
@@ -139,27 +155,41 @@ export const MainLogin = () => {
             }
           )
           .catch((err) => {
-            setLoading({ ...loading, normal: false });
-            //Profile not completed
-            dispatch({
-              type: "GET_USER_ACTION",
-              payload: {
-                email: response.data.email,
-              },
-            });
-            toast.info("Please complete registration!", {
-              position: "top-center",
-              autoClose: 800,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              pauseOnFocusLoss: false,
-              draggable: true,
-              theme: "dark",
-            });
-            setTimeout(() => {
-              navigate("../register");
-            }, 2000);
+            if (err.response.status === 500) {
+              setLoading({ ...loading, google: false });
+              toast.error("Server error! Try again later", {
+                position: "top-center",
+                autoClose: 800,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                pauseOnFocusLoss: false,
+                draggable: true,
+                theme: "dark",
+              });
+            } else {
+              setLoading({ ...loading, normal: false });
+              //Profile not completed
+              dispatch({
+                type: "GET_USER_ACTION",
+                payload: {
+                  email: response.data.email,
+                },
+              });
+              toast.info("Please complete registration!", {
+                position: "top-center",
+                autoClose: 800,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                pauseOnFocusLoss: false,
+                draggable: true,
+                theme: "dark",
+              });
+              setTimeout(() => {
+                navigate("../register");
+              }, 2000);
+            }
           });
       })
       .catch((error) => {
@@ -230,24 +260,38 @@ export const MainLogin = () => {
             });
       })
       .catch((err) => {
-        setLoading({ ...loading, normal: false });
-        toast.error("User does not exist!", {
-          position: "top-center",
-          autoClose: 800,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          pauseOnFocusLoss: false,
-          draggable: true,
-          theme: "dark",
-        });
+        if (err.response.status === 500) {
+          setLoading({ ...loading, google: false });
+          toast.error("Server error! Try again later", {
+            position: "top-center",
+            autoClose: 800,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            pauseOnFocusLoss: false,
+            draggable: true,
+            theme: "dark",
+          });
+        } else {
+          setLoading({ ...loading, normal: false });
+          toast.error("User does not exist!", {
+            position: "top-center",
+            autoClose: 800,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            pauseOnFocusLoss: false,
+            draggable: true,
+            theme: "dark",
+          });
+        }
       });
   };
   return (
     <LoginContainer>
       <ToastContainer />
       <svg
-        onClick={() => navigate("/")}
+        onClick={() => navigate("/home")}
         xmlns="http://www.w3.org/2000/svg"
         height="1em"
         viewBox="0 0 512 512"

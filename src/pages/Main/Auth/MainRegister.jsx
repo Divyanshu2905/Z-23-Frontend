@@ -74,20 +74,34 @@ export const MainRegister = () => {
               setUser({ ...user, email: "", password: "", cpassword: "" });
             })
             .catch((err) => {
-              setLoading({ ...loading, normal: false });
-              toast.info("Complete your profile", {
-                position: "top-center",
-                autoClose: 800,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                pauseOnFocusLoss: false,
-                draggable: true,
-                theme: "dark",
-              });
-              setTimeout(() => {
-                setInitialPage(1);
-              }, 1000);
+              if (err.response.status === 500) {
+                setLoading({ ...loading, google: false });
+                toast.error("Server error! Try again later", {
+                  position: "top-center",
+                  autoClose: 800,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  pauseOnFocusLoss: false,
+                  draggable: true,
+                  theme: "dark",
+                });
+              } else {
+                setLoading({ ...loading, normal: false });
+                toast.info("Complete your profile", {
+                  position: "top-center",
+                  autoClose: 800,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  pauseOnFocusLoss: false,
+                  draggable: true,
+                  theme: "dark",
+                });
+                setTimeout(() => {
+                  setInitialPage(1);
+                }, 1000);
+              }
             });
         } else if (err.response.data.code === "auth/invalid-email") {
           setLoading({ ...loading, normal: false });
@@ -146,19 +160,33 @@ export const MainRegister = () => {
             });
           })
           .catch((err) => {
-            setLoading({ ...loading, google: false });
-            toast.info("Please fill in the details.", {
-              position: "top-center",
-              autoClose: 800,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              pauseOnFocusLoss: false,
-              draggable: true,
-              theme: "dark",
-            });
-            setUser({ ...user, email: result.user.email, google: true });
-            setInitialPage(1);
+            if (err.response.status === 500) {
+              setLoading({ ...loading, google: false });
+              toast.error("Server error! Try again later", {
+                position: "top-center",
+                autoClose: 800,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                pauseOnFocusLoss: false,
+                draggable: true,
+                theme: "dark",
+              });
+            } else {
+              setLoading({ ...loading, google: false });
+              toast.info("Please fill in the details.", {
+                position: "top-center",
+                autoClose: 800,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                pauseOnFocusLoss: false,
+                draggable: true,
+                theme: "dark",
+              });
+              setUser({ ...user, email: result.user.email, google: true });
+              setInitialPage(1);
+            }
           });
       })
       .catch((error) => {
@@ -178,7 +206,7 @@ export const MainRegister = () => {
   return (
     <RegisterContainer>
       <svg
-        onClick={() => navigate("/")}
+        onClick={() => navigate("/home")}
         xmlns="http://www.w3.org/2000/svg"
         height="1em"
         viewBox="0 0 512 512"

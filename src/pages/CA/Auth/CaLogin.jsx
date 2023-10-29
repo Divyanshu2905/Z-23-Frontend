@@ -28,34 +28,87 @@ export const CaLogin = () => {
 
   const handleGoogleLogin = async () => {
     setLoading({ ...loading, google: true });
+    setTimeout(() => {
+      setLoading({ ...loading, google: false });
+    }, 5000);
     const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider).then((result) => {
-      //Successful login
-      axiosInstance
-        .get("/ca-user", {
-          params: { email: result.user.email },
-        })
-        .then((res) => {
-          //Profile completed already
-          //Setting in redux
-          dispatch({
-            type: "GET_CA_ACTION",
-            payload: { ...res.data, isVerified: true },
-          });
-          //Fetching leaderboard
-          axiosInstance
-            .get("/leaderboard")
-            .then((res) => {
-              setLoading({ ...loading, google: false });
-              //Setting in redux
-              dispatch({
-                type: "GET_LEADERBOARD_ACTION",
-                payload: res.data,
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        //Successful login
+        axiosInstance
+          .get("/ca-user", {
+            params: { email: result.user.email },
+          })
+          .then((res) => {
+            //Profile completed already
+            //Setting in redux
+            dispatch({
+              type: "GET_CA_ACTION",
+              payload: { ...res.data, isVerified: true },
+            });
+            //Fetching leaderboard
+            axiosInstance
+              .get("/leaderboard")
+              .then((res) => {
+                setLoading({ ...loading, google: false });
+                //Setting in redux
+                dispatch({
+                  type: "GET_LEADERBOARD_ACTION",
+                  payload: res.data,
+                });
+                //Redirect to dashboard
+                toast.success("Success", {
+                  position: "top-center",
+                  autoClose: 500,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  pauseOnFocusLoss: false,
+                  draggable: true,
+                  theme: "dark",
+                });
+                setTimeout(() => {
+                  navigate("../dashboard");
+                }, 2000);
+              })
+              .catch((err) => {
+                setLoading({ ...loading, google: false });
+                toast.error("Error loading leaderboard", {
+                  position: "top-center",
+                  autoClose: 800,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  pauseOnFocusLoss: false,
+                  draggable: true,
+                  theme: "dark",
+                });
               });
-              //Redirect to dashboard
-              toast.success("Success", {
+          })
+          .catch((error) => {
+            if (error.response.status === 500) {
+              setLoading({ ...loading, google: false });
+              toast.error("Server error! Try again later", {
                 position: "top-center",
-                autoClose: 500,
+                autoClose: 800,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                pauseOnFocusLoss: false,
+                draggable: true,
+                theme: "dark",
+              });
+            } else {
+              setLoading({ ...loading, google: false });
+              dispatch({
+                type: "GET_CA_ACTION",
+                payload: {
+                  email: error.response.data.email,
+                },
+              });
+              toast.error("Please complete Registration!", {
+                position: "top-center",
+                autoClose: 800,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -64,39 +117,14 @@ export const CaLogin = () => {
                 theme: "dark",
               });
               setTimeout(() => {
-                navigate("../dashboard");
+                navigate("../register");
               }, 2000);
-            })
-            .catch((err) => {
-              setLoading({ ...loading, google: false });
-              console.log(err);
-            });
-        })
-        .catch((error) => {
-          setLoading({ ...loading, google: false });
-          dispatch({
-            type: "GET_CA_ACTION",
-            payload: {
-              email: error.response.data.email,
-            },
+            }
           });
-          toast.error("Please complete Registration!", {
-            position: "top-center",
-            autoClose: 800,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            pauseOnFocusLoss: false,
-            draggable: true,
-            theme: "dark",
-          });
-          setTimeout(() => {
-            navigate("../register");
-          }, 2000);
-        });
-    }).catch((err)=>{
-      //Popup closed by user
-    });
+      })
+      .catch((err) => {
+        //Popup closed by user
+      });
   };
   const handleLogin = async () => {
     setLoading({ ...loading, normal: true });
@@ -124,11 +152,11 @@ export const CaLogin = () => {
               });
               //Fetching leaderboard
               axiosInstance
-              .get("/leaderboard")
-              .then((res) => {
-                //Setting in redux
-                setLoading({ ...loading, normal: false });
-                dispatch({
+                .get("/leaderboard")
+                .then((res) => {
+                  //Setting in redux
+                  setLoading({ ...loading, normal: false });
+                  dispatch({
                     type: "GET_LEADERBOARD_ACTION",
                     payload: res.data,
                   });
@@ -151,27 +179,41 @@ export const CaLogin = () => {
             }
           )
           .catch((err) => {
-            //Profile not completed
-            setLoading({ ...loading, normal: false });
-            dispatch({
-              type: "GET_CA_ACTION",
-              payload: {
-                email: response.data.email,
-              },
-            });
-            toast.info("Please complete registration!", {
-              position: "top-center",
-              autoClose: 800,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              pauseOnFocusLoss: false,
-              draggable: true,
-              theme: "dark",
-            });
-            setTimeout(() => {
-              navigate("../register");
-            }, 2000);
+            if (err.response.status === 500) {
+              setLoading({ ...loading, google: false });
+              toast.error("Server error! Try again later", {
+                position: "top-center",
+                autoClose: 800,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                pauseOnFocusLoss: false,
+                draggable: true,
+                theme: "dark",
+              });
+            } else {
+              //Profile not completed
+              setLoading({ ...loading, normal: false });
+              dispatch({
+                type: "GET_CA_ACTION",
+                payload: {
+                  email: response.data.email,
+                },
+              });
+              toast.info("Please complete registration!", {
+                position: "top-center",
+                autoClose: 800,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                pauseOnFocusLoss: false,
+                draggable: true,
+                theme: "dark",
+              });
+              setTimeout(() => {
+                navigate("../register");
+              }, 2000);
+            }
           });
       })
       .catch((error) => {
@@ -241,17 +283,31 @@ export const CaLogin = () => {
             });
       })
       .catch((err) => {
-        setLoading({ ...loading, normal: false });
-        toast.error("User does not exist!", {
-          position: "top-center",
-          autoClose: 800,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          pauseOnFocusLoss: false,
-          draggable: true,
-          theme: "dark",
-        });
+        if (err.response.status === 500) {
+          setLoading({ ...loading, google: false });
+          toast.error("Server error! Try again later", {
+            position: "top-center",
+            autoClose: 800,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            pauseOnFocusLoss: false,
+            draggable: true,
+            theme: "dark",
+          });
+        } else {
+          setLoading({ ...loading, normal: false });
+          toast.error("User does not exist!", {
+            position: "top-center",
+            autoClose: 800,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            pauseOnFocusLoss: false,
+            draggable: true,
+            theme: "dark",
+          });
+        }
       });
   };
 

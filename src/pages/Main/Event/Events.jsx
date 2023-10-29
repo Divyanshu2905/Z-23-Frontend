@@ -47,7 +47,7 @@ export const Events = () => {
     setValue("");
   }, [category, loading]);
   useEffect(() => {
-    setFilteredEvents(findClosestMatch(filteredEvents, inputValue));
+    setFilteredEvents(findClosestMatch(events, inputValue));
   }, [inputValue]);
 
   return (

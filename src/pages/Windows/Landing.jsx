@@ -59,9 +59,9 @@ export default function Landing() {
                 <div style={{ display: "flex", width: "100%" }}>
                   <LandingButton
                     className="export"
-                    text="Events"
+                    text="Website"
                     onclick={() => {
-                      navigate("/events");
+                      navigate("/home");
                     }}
                   ></LandingButton>
                   <LandingButton

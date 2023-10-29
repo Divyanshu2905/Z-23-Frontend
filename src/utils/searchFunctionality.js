@@ -1,5 +1,5 @@
 export const findClosestMatch = (objects, searchStr) => {
-  if (!searchStr || searchStr ==="all") {
+  if (!searchStr || searchStr ==="all" || searchStr==="") {
     return objects;
   } else if (!objects.length) {
     return [];

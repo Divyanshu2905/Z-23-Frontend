@@ -12,15 +12,16 @@
     gap: 36px;
   }
 
-  .fl {
+  .fl-faq {
     width: 40vw;
     display: flex;
     justify-content: center;
     gap: 24px;
     align-items: center;
+    margin-top: 20px;
   }
 
-  .fl>div {
+  .fl-faq>div {
     color: var(--light1, #E6D6B5);
     font-family: Oleo Script;
     font-size: max(4vw, 20px);
@@ -28,26 +29,28 @@
     text-transform: capitalize;
   }
 
-  .fl>svg{
+  .fl-faq>svg{
     width: max(10vw, 80px);
   }
 
-  .fl2 {
+  .fl2-faq {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    width: 75vw;
+    width: 90vw;
   }
 
-  .outer {
+  .outer-faq {
     display: flex;
     justify-content: center;
     width: 75vw;
     min-width: 768px;
   }
 
-  .container {
-    background: #A57052;
+  .container-faq {
+    /* background: #A57052; */
+    background-image: url("./dabba.png");
+    background-size: contain;
     display: flex;
     flex-direction: column;
     flex-shrink: 0;
@@ -67,27 +70,27 @@
     bottom: 0;
   }
 
-  .inside {
+  .inside-faq {
     width: 100%;
     overflow-y: auto;
   }
 
-  .button {
+  .button-faq {
     cursor: pointer;
   }
 
-  .in {
+  .in-faq {
     position: absolute;
   }
 
-  .c2 {
+  .c2-faq {
     display: flex;
     padding: 0;
     align-items: center;
     gap: 1rem;
   }
 
-  .c3 {
+  .c3-faq {
     display: flex;
     padding: 0% 0px;
     justify-content: space-between;
@@ -95,7 +98,7 @@
     gap: 2px;
   }
 
-  .typ {
+  .typ-faq {
     color: var(--lightest, #F8F2D8);
     font-family: Jost;
     font-size: 24px;
@@ -106,11 +109,11 @@
     margin: 0;
   }
 
-  .dropdown-content {
+  .dropdown-content-faq {
     padding: 0 2rem;
   }
 
-  .ans {
+  .ans-faq {
     color: var(--lightest, #F8F2D8);
     font-family: Jost;
     font-size: 20px;
@@ -124,7 +127,7 @@
 
 
 
-  .question-container {
+  .question-container-faq {
     display: flex;
     flex-direction: column;
     border-bottom: 0.1px solid rgba(230, 214, 181, 0.9);
@@ -133,16 +136,18 @@
     cursor: pointer;
   }
 
-  .includeiso {
+  .includeiso-faq {
 
     position: relative;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+    padding-left:7px;
+    padding-right: 7px;
   }
 
-  .abs {
+  .abs-faq {
     position: absolute;
     top: 30px;
   }
@@ -151,16 +156,16 @@
     top: 35px;
   }
 
-  .mobile {
+  .mobile-faq {
     display: none;
   }
 
   @media(max-width:1200px) {
-    .typ {
+    .typ-faq {
       font-size: 18px;
     }
 
-    .ans {
+    .ans-faq {
       font-size: 17px;
     }
   }

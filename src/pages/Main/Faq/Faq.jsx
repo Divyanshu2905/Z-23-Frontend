@@ -16,23 +16,35 @@ export const Faq = () => {
   const toggleDropdown3 = () => {
     setIsComp(3);
     setIsOpen3(!isOpen3);
+    setIsOpen2(false);
+    setIsOpen1(false);
+    setIsOpen4(false);
   };
   const toggleDropdown1 = () => {
     setIsComp(1);
     setIsOpen1(!isOpen1);
+    setIsOpen2(false);
+    setIsOpen3(false);
+    setIsOpen4(false);
   };
   const toggleDropdown2 = () => {
     setIsComp(2);
     setIsOpen2(!isOpen2);
+    setIsOpen3(false);
+    setIsOpen1(false);
+    setIsOpen4(false);
   };
   const toggleDropdown4 = () => {
     setIsComp(4);
     setIsOpen4(!isOpen4);
+    setIsOpen2(false);
+    setIsOpen1(false);
+    setIsOpen3(false);
   };
   return (
     <div className="faq-container">
 
-      <div className="fl">
+      <div className="fl-faq">
         {/* <img src="" alt="" className="faq" /> */}
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -122,14 +134,14 @@ export const Faq = () => {
           </defs>
         </svg>
       </div>
-      <div className="fl2">
-        <div className="includeiso">
+      <div className="fl2-faq">
+        <div className="includeiso-faq">
           <svg
-            className="button"
+            className="button-faq"
             id="one"
-            width="249"
-            height="39"
-            viewBox="0 0 249 39"
+            width="240"
+            height="34"
+            viewBox="0 0 260 39"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             onClick={toggleDropdown1}
@@ -143,7 +155,7 @@ export const Faq = () => {
             // <img src="" alt="" srcset="" className="abs" />
             <svg
               width="221"
-              className="abs"
+              className="abs-faq"
               height="18"
               id="onefix"
               viewBox="0 0 221 14"
@@ -220,18 +232,18 @@ export const Faq = () => {
             </svg>
           )}
           {isOpen1 && (
-            <div className="mobile">
+            <div className="mobile-faq">
               <Registrations />
             </div>
           )}
         </div>
-        <div className="includeiso">
+        <div className="includeiso-faq">
           <svg
-            className="button"
-            width="189"
-            height="28"
+            className="button-faq"
+            width="178"
+            height="24"
             id="two"
-            viewBox="0 0 189 28"
+            viewBox="0 0 189 25"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             onClick={toggleDropdown2}
@@ -245,7 +257,7 @@ export const Faq = () => {
             // <img src="" alt="" srcset="" className="abs" />
             <svg
               width="221"
-              className="abs"
+              className="abs-faq"
               height="14"
               viewBox="0 0 221 14"
               fill="none"
@@ -321,18 +333,18 @@ export const Faq = () => {
             </svg>
           )}
           {isOpen2 && (
-            <div className="mobile">
+            <div className="mobile-faq">
               <Facilities />
             </div>
           )}
         </div>
-        <div className="includeiso">
+        <div className="includeiso-faq">
           <svg
-            className="button"
-            width="138"
-            height="27"
+            className="button-faq"
+            width="130"
+            height="23"
             id="three"
-            viewBox="0 0 138 27"
+            viewBox="0 0 138 25"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             onClick={toggleDropdown3}
@@ -346,7 +358,7 @@ export const Faq = () => {
             // <img src="" alt="" srcset="" className="abs" />
             <svg
               width="221"
-              className="abs"
+              className="abs-faq"
               height="14"
               viewBox="0 0 221 14"
               fill="none"
@@ -422,18 +434,18 @@ export const Faq = () => {
             </svg>
           )}
           {isOpen3 && (
-            <div className="mobile">
+            <div className="mobile-faq">
               <Competetions />
             </div>
           )}
         </div>
-        <div className="includeiso">
+        <div className="includeiso-faq">
           <svg
-            className="button"
-            width="223"
-            height="25"
+            className="button-faq"
+            width="215"
+            height="21"
             id="four"
-            viewBox="0 0 223 22"
+            viewBox="0 0 223 23"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             onClick={toggleDropdown4}
@@ -448,7 +460,7 @@ export const Faq = () => {
             // <img src="" alt="" srcset="" className="abs"/>
             <svg
               width="221"
-              className="abs"
+              className="abs-faq"
               height="14"
               viewBox="0 0 221 14"
               fill="none"
@@ -524,15 +536,15 @@ export const Faq = () => {
             </svg>
           )}
           {isOpen4 && (
-            <div className="mobile">
+            <div className="mobile-faq">
               <Accomodations />
             </div>
           )}
         </div>
       </div>
-      <div className="outer">
-        <div className="container">
-          <img src={dabba} alt="" srcset="" id="dabba"/>
+      <div className="outer-faq">
+        <div className="container-faq">
+          {/* <img src={dabba} alt="" srcset="" id="dabba"/> */}
           <div className="inside">
             {isComp === 1 && <Registrations />}
             {isComp === 2 && <Facilities />}
