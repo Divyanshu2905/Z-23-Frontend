@@ -1,5 +1,5 @@
 import React from "react";
-import complex from "./complex.svg";
+import complex from "../resources/complex.svg";
 import styled from "styled-components";
 export const Loader = () => {
   return (

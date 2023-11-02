@@ -201,25 +201,26 @@ const AboutContainer = styled.div`
   align-items: center;
   overflow: hidden;
   padding-bottom: 5vh;
-  .card {
+  >.card {
     flex: 1;
-    aspect-ratio: 2.15/1;
     border-radius: 1.61vw;
     background: url("https://firebasestorage.googleapis.com/v0/b/zeitgeist-23.appspot.com/o/Resources%2FMAIN%2Fresources%2Fbgcard.png?alt=media&token=6508e7b0-5c72-45bd-9d13-4b5838630df1"),
-      var(--dark-extra-1, #ad7b57);
+    var(--dark-extra-1, #ad7b57);
     background-blend-mode: multiply;
     box-shadow: 4px 6px 0px 0px rgba(114, 62, 48, 0.8);
     position: relative;
     display: flex;
     flex-direction: column;
-    @media screen and (max-width: 1024px) {
-      width: 90%;
+    overflow: hidden;
+    width: 90%;
+    @media screen and (min-width: 1024px) {
+      aspect-ratio: 2.15/1;
     }
   }
 
   .mic {
     position: absolute;
-    left: 0;
+    left: 1.2vw;
     bottom: 0;
     height: 50%;
     aspect-ratio: 0.47/1;

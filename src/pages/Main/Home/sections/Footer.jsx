@@ -168,7 +168,7 @@ const Footer = () => {
                 <NavLink to="/events">Events</NavLink>
               </p>
               <p>
-                <NavLink to="/sponsor">Sponsors</NavLink>
+                <NavLink to="/sponsors">Sponsors</NavLink>
               </p>
               <p>
                 <NavLink to="/schedule">Schedule</NavLink>
@@ -180,7 +180,7 @@ const Footer = () => {
                 <NavLink to="/faq">FAQs</NavLink>
               </p>
               <p>
-                <NavLink to="/tnc">T&C</NavLink>
+                <NavLink to="/t&c">T&C</NavLink>
               </p>
             </div>
           </div>

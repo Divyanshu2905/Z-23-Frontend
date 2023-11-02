@@ -17,10 +17,10 @@ function Highlights() {
 
   const { scrollYProgress } = useScroll();
   const { height } = dimension;
-  const y = useTransform(scrollYProgress, [0, 1], [1400, height * -2]);
-  const y2 = useTransform(scrollYProgress, [0, 1], [1700, height * -2.5]);
-  const y3 = useTransform(scrollYProgress, [0, 1], [1200, height * -1.5]);
-  const y4 = useTransform(scrollYProgress, [0, 1], [1600, height * -1.75]);
+  const y = useTransform(scrollYProgress, [0, 1], [1700, height * -2]);
+  const y2 = useTransform(scrollYProgress, [0, 1], [2200, height * -2.5]);
+  const y3 = useTransform(scrollYProgress, [0, 1], [1600, height * -1.5]);
+  const y4 = useTransform(scrollYProgress, [0, 1], [1900, height * -1.75]);
 
   useEffect(() => {
     const resize = () => {

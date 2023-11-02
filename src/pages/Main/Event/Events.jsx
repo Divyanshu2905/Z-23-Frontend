@@ -28,7 +28,7 @@ export const Events = () => {
       .get("/allEvents")
       .then(async (response) => {
         dispatch({ type: "GET_EVENTS_ACTION", payload: response.data });
-        setLoading(false)
+        setLoading(false);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -323,7 +323,7 @@ const EventContainer = styled.div`
       justify-content: space-evenly;
       gap: 40px;
       padding-right: 10px;
-      .loader-container{
+      .loader-container {
         width: 100%;
         height: 100px;
         display: flex;

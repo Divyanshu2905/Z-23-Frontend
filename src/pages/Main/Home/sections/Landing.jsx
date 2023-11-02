@@ -35,18 +35,11 @@ function Landing() {
           transition={{ delay: 1 }}
         />
       </div>
-      <div className="buy-tickets-container" onClick={()=>{
-        toast.info("Coming Soon!", {
-          position: "top-center",
-          autoClose: 800,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          pauseOnFocusLoss: false,
-          draggable: true,
-          theme: "dark",
-        });
-      }}>
+      <a
+        className="buy-tickets-container"
+        href="https://in.bookmyshow.com/special/zeitgeist-a-retro-renaissance/ET00374450?webview=true"
+        target="_blank"
+      >
         <motion.div
           className="buy-tickets"
           initial={{ rotate: -6, y: 50, opacity: 0 }}
@@ -94,11 +87,10 @@ function Landing() {
             }}
           />
         </motion.div>
-      </div>
+      </a>
       <div className="lamp-train">
         <div className="lamp-post"></div>
-        <div className="track">
-        </div>
+        <div className="track"></div>
         <motion.div
           transition={{ ease: "linear" }}
           className="train"
