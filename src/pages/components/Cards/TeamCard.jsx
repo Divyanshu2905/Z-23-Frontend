@@ -79,7 +79,7 @@ const CardContainer = styled.div`
     }
     &:hover {
       .social-media {
-        bottom: 0;
+        bottom: -2px;
       }
     }
     .social-media {

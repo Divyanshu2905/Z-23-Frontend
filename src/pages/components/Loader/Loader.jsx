@@ -3,7 +3,7 @@ import complex from "../resources/complex.svg";
 import styled from "styled-components";
 export const Loader = () => {
   return (
-    <LoaderContainer>
+    <LoaderContainer className="loader">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         height="1em"

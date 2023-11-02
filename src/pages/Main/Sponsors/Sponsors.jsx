@@ -1,10 +1,21 @@
-import React from 'react'
-import { Navbar } from '../../components/Navbar/Navbar'
-import styled from 'styled-components'
+import React, { useEffect, useState } from "react";
+import { Navbar } from "../../components/Navbar/Navbar";
+import styled from "styled-components";
+import { axiosInstance } from "../../../config/config";
+import { Loader } from "../../components/Loader/Loader";
 
-import reel from "../resources/reelSponsorBg.svg"
+import reel from "../resources/reelSponsorBg.svg";
 
 export const Sponsors = () => {
+  const [sponsors, setSponsors] = useState([]);
+  const [loading, setloading] = useState(false);
+  useEffect(() => {
+    setloading(true);
+    axiosInstance.get("/sponsors").then((res) => {
+      setloading(false);
+      setSponsors(res.data);
+    });
+  }, []);
   return (
     <SponsorContainer>
       <Navbar></Navbar>
@@ -20,14 +31,42 @@ export const Sponsors = () => {
             alt=""
           />
         </div>
-        <div class="sponsor-slideshow">
-          <div class="mover-1"></div>
-          <div class="mover-2"></div>
+        <div class="sponsor-wrapper">
+          {loading ? (
+            <Loader />
+          ) : (
+            <>
+              <div className="sponsor-track">
+                {sponsors.map((sponsor) => (
+                  <div className="sponsor">
+                    <img src={sponsor.url} alt="" />
+                  </div>
+                ))}
+                {sponsors.map((sponsor) => (
+                  <div className="sponsor">
+                    <img src={sponsor.url} alt="" />
+                  </div>
+                ))}
+              </div>
+              <div className="sponsor-track">
+                {sponsors.map((sponsor) => (
+                  <div className="sponsor">
+                    <img src={sponsor.url} alt="" />
+                  </div>
+                ))}
+                {sponsors.map((sponsor) => (
+                  <div className="sponsor">
+                    <img src={sponsor.url} alt="" />
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
         </div>
       </div>
     </SponsorContainer>
   );
-}
+};
 
 const SponsorContainer = styled.div`
   background-color: #c8b897;
@@ -67,45 +106,55 @@ const SponsorContainer = styled.div`
         font-weight: 400;
       }
     }
-    > .sponsor-slideshow {
-      height: 50vh;
-      width: 100vw;
-      margin: 0 auto;
-      position: relative;
-      /* overflow: hidden; */
-      transform: translate3d(0, 0, 0);
-      > div {
+    > .sponsor-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-evenly;
+      .loader {
+        margin: auto;
+      }
+      .sponsor-track {
+        width: calc(24 * 300px);
         height: 200px;
-        width: 200%;
+        display: flex;
         background: url(${reel});
+        background-position: center left;
+        background-size: contain;
         background-repeat: repeat-x;
-        background-position: center;
-        position: absolute;
-        left: 0;
-        transform: translate3d(0, 0, 0);
-        &.mover-2{
-          animation: moveSlideshow 15s ease-in-out infinite alternate-reverse;
-          bottom: 0;
+        background-blend-mode: color-burn;
+        &:last-child {
+          animation: scroll-2 30s linear infinite reverse;
+          @keyframes scroll-2 {
+            0% {
+              transform: translateX(0);
+            }
+            100% {
+              transform: translateX(calc(-300px * 12));
+            }
+          }
         }
-        &.mover-1{
-          animation: moveSlideshow 17s ease-in-out infinite alternate-reverse;
-          top: 0;
+        animation: scroll-1 40s linear infinite;
+        @keyframes scroll-1 {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(calc(-300px * 12));
+          }
+        }
+        .sponsor {
+          height: 100%;
+          aspect-ratio: 3/2;
+          > img {
+            padding: 20px;
+            width: 300px;
+            height: 200px;
+            object-fit: contain;
+          }
         }
       }
-    }
-  }
-  @keyframes moveSlideshow {
-    100% {
-      transform: translateX(-50%);
-    }
-  }
-  @keyframes flicker {
-    0%,
-    100% {
-      background-color: #c8b897;
-    }
-    50% {
-      background-color: #c8b897c3;
     }
   }
 `;

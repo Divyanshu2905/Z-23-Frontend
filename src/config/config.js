@@ -1,4 +1,4 @@
 import axios from "axios";
 export const axiosInstance = axios.create({
-  baseURL: "https://api.zeitgeistrpr.com",
+  baseURL: "http://localhost:5000",
 });
